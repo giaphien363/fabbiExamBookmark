@@ -46,6 +46,9 @@ class CategoryDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, format=None):
+        if id == 1:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         cate = self.get_object(id)
         if cate:
             cate.delete()

@@ -9,7 +9,6 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'categoryName']
 
     def validate(self, data):
-        print(data)
         try:
             if data['categoryName'] is None or not data['categoryName']:
                 raise serializers.ValidationError({"categoryName": "This field is required!"})
@@ -17,3 +16,4 @@ class CategorySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"categoryName": "This field is required!"})
 
         return data
+
