@@ -1,7 +1,9 @@
-## Project make Bookmark Manager
+## Project Bookmark Manager
 
 ### Create venv
-`python -m venv venv`
+- `python -m venv venv`
+- `pip install -r requirements.txt`
+
 
 ### Set up mongo in docker
 - `docker pull mongo`
@@ -16,13 +18,3 @@
 - `mongo --username [admin] --password [admin]`
 - `use [db_name]`
 
-
-
-
-# Not fix yet
-### Create super user -- dont run this command
-`db.createUser({	
-    user: "admin",
-	pwd: "admin",
-	roles:[{role: "userAdminAnyDatabase" , db:"admin"}]
-})`
