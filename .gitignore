@@ -1,7 +1,7 @@
-./venv
-./.idea
-./.env
-./.vscode
+venv
+.idea
+.env
+.vscode
 
 
 # FE
