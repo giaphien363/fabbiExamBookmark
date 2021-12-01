@@ -1,22 +1,19 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import Group from "../Group/index";
+import { Col, Container, Row } from "reactstrap";
+import Group from "../../components/Group";
+import { StyledMain } from "./styledMain";
 
 const Main = () => {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Group />
-        </Col>
-        <Col>
-          <Group />
-        </Col>
-        <Col>
-          <Group />
-        </Col>
-      </Row>
-    </Container>
+    <StyledMain>
+      <Container>
+        <Row>
+          <Col>
+            <Group />
+          </Col>
+        </Row>
+      </Container>
+    </StyledMain>
   );
 };
 Main.propTypes = {};

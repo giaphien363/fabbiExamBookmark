@@ -1,27 +1,25 @@
 import React from "react";
 import { Col, Container, Row } from "reactstrap";
 
-Header.propTypes = {};
+const Header = () => {
+  const styles = {
+    col: {
+      margin: "15px auto",
+    },
+  };
 
-function Header() {
   return (
     <div>
       <Container>
         <Row className="justify-content-between">
-          <Col xs="auto">
-            <a
-              className="header__link header__title"
-              href="/bookmark/add"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ADD
-            </a>
+          <Col xs="6" style={styles.col}>
+            <h3>Bookmark management!</h3>
           </Col>
         </Row>
       </Container>
     </div>
   );
-}
+};
+Header.propTypes = {};
 
 export default Header;
