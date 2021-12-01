@@ -24,6 +24,7 @@ env = environ.Env(
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, './.env'))
+print(env('DATABASE'))
 
 
 # Quick-start development settings - unsuitable for production

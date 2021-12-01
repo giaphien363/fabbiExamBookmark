@@ -4,21 +4,12 @@ import Group from "../Group/index";
 
 const Main = () => {
   return (
-    <Container>
-      <Row>
+    <Container >
         <Col>
           <Group />
         </Col>
-        <Col>
-          <Group />
-        </Col>
-        <Col>
-          <Group />
-        </Col>
-      </Row>
     </Container>
   );
 };
 Main.propTypes = {};
-
 export default Main;

@@ -1,13 +1,18 @@
 import React from 'react'
+import { Row } from 'reactstrap'
 
-const Bookmark = ({id}) => {
+function Bookmark() {
+    const bookmark = [
+        {id: 1, title: 'google', url: 'google.com'},
+        {id: 2, title: 'facebook', url: 'facebook.com'}]
     return (
-        <div>
-            bookmark  {id}
-        </div>
+        <Row>
+            {bookmark.map((bookmark) => 
+            <div key={bookmark.id}>
+                <a href={bookmark.url}  target="_blank">{bookmark.title}</a>
+            </div>)}
+        </Row>
     )
 }
-
-Bookmark.propTypes = {}
 
 export default Bookmark

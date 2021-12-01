@@ -1,16 +1,29 @@
-import React from "react";
-import Bookmark from "../Bookmark";
+import React from 'react'
+import { Card, ListGroup, CardTitle} from 'reactstrap'
+import Bookmark from '../Bookmark'
+import {styledGroup} from  './styledGroup'
 
-const Group = () => {
-  return (
-    <div style={{backgroundColor:'red',marginTop:'20px'}}>
-      <Bookmark id='1' />
-      <Bookmark id='2' />
-      <Bookmark id='3' />
+function Group() {
+  const groups = [
+    {id: 1, groupName: 'Bookmarks'},
+    {id: 2, groupName: 'Search'},
+    {id: 3, groupName: 'Study'},
+  ] 
+  const grouplist = groups.map((group) =>
+  (
+    <Card border="warning" style={{ width: '18rem' }} className='card'>        
+      <CardTitle className='card__title' key={group.id}>{group.groupName}</CardTitle>
+        <ListGroup>
+          <Bookmark />
+        </ListGroup>
+    </Card>
+  )
+  )
+  return (  
+    <div>
+      {grouplist}  
     </div>
-  );
-};
+  )
+}
 
-Group.propTypes = {};
-
-export default Group;
+export default Group

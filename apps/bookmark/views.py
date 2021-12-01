@@ -26,7 +26,6 @@ class BookmarkAPIView(APIView) :
     def get(self, request):
         bookmark = BookMark.objects.all()
         keyword = self.request.query_params.get('kw')
-        # print('kw :', keyword)oundound
         if keyword is not None:
             bookmark = bookmark.filter(title__icontains=keyword)
 
