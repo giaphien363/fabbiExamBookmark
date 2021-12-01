@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import request
-from django.http.response import Http404
+from django.http.response import Http404, HttpResponse
+from apps.category.models import Category
 from rest_framework import status
 from rest_framework.response import Response
 from apps.bookmark.models import BookMark
@@ -8,6 +9,18 @@ from apps.bookmark.serializer import BookmarkSerializer
 from rest_framework.views import APIView
 
 # Create your views here.
+
+def getCategoryId(id):
+    cate_id = int(id)
+
+    if cate_id is not None :
+        try:
+            value = Category.objects.get(id=cate_id)
+            if value:
+                return cate_id
+        except Category.DoesNotExist:
+            return 1
+
 
 class BookmarkAPIView(APIView) :
     def get(self, request):
@@ -21,12 +34,19 @@ class BookmarkAPIView(APIView) :
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        serializer = BookmarkSerializer(data=request.data)
+        try:
+            request.data['category']
+        except:
+            request.data['category'] = 1
 
+        myData = {'title': request.data['title'], 'url': request.data['url'], 'category': getCategoryId(request.data['category'])}
+        
+        serializer = BookmarkSerializer(data=myData)
+        
         if serializer.is_valid():
             serializer.save()
-
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+   
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
    
