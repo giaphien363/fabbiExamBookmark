@@ -3,7 +3,7 @@ import Bookmark from "../Bookmark";
 
 const Group = () => {
   return (
-    <div style={{backgroundColor:'red',marginTop:'20px'}}>
+    <div style={{marginTop:'20px'}}>
       <Bookmark id='1' />
       <Bookmark id='2' />
       <Bookmark id='3' />
