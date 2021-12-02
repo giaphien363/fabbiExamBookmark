@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Container, Row, Modal, Button } from "reactstrap";
+import { Col, Container, Row, Modal, Button, Navbar } from "reactstrap";
 import Group from "../../components/Group";
 import { StyledMain } from "./styledMain";
 
@@ -12,12 +12,7 @@ const Main = () => {
   return (
     <StyledMain>
       <Container>
-        <Row>
-          <Col>
             <Group />
-          </Col>
-        </Row>
-
         {/* test modal */}
         <Button variant="primary" onClick={handleShow}>
           Launch static backdrop modal
