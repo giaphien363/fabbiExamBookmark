@@ -1,22 +1,27 @@
-import { Button, Navbar, Row } from "reactstrap";
+import { Button, Container, Input, InputGroup, Row } from "reactstrap";
 import styled from "styled-components";
 
-export const StyledHeader = styled(Row)`
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-    /* font-family: cursive; */
+export const StyledHeader = styled(Container)`
+    margin-bottom: 30px;
+
+`
+
+export const StyledHeaderTitle = styled(Row)`
     font-family: serif;
-    margin-bottom : 50px;
-    height: 100px;
+    height: 120px;
     text-align: center;
     align-content: center;
-`;
+`
 
 export const StyledAddButton = styled(Button)`
-    background-color: cornflowerblue;
-    float: right;
-    margin-top: -50px;
-
+    background-color: steelblue;
+    color: snow;
+    
     &:hover{
-        background-color: lightseagreen;
+        background-color: green;
     }
+`
+
+export const StyledInput = styled(InputGroup)`
+    margin-left: 220%;
 `

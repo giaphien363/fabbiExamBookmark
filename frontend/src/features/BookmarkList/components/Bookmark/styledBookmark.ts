@@ -6,7 +6,7 @@ export const StyledLink = styled.a`
     text-decoration : none ;
     color : black ;
     
-`;
+`
 
 export const StyledButton = styled(Button)`
     display: none;

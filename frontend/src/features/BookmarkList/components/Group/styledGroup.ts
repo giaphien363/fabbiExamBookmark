@@ -3,18 +3,15 @@ import { Button, Card, CardTitle, Col, ListGroup, Row, UncontrolledButtonDropdow
 
 
 export const StyledCard  = styled(Card)`
-    width: 25rem;
-    margin: 1rem 1rem;
+    margin: 1rem 0rem;
     line-height: 2.3rem;
-    align-self: center;
-
- 
-`;
+`
 
 export const StyledCardTitle = styled(CardTitle)`
     font-weight: bolder ;
     margin : 0.3rem;
-`;
+`
+
  export const StyledDropdownButton = styled(Button)`
     margin: 0rem 1rem;
     border-color: transparent;
@@ -35,7 +32,7 @@ export const StyledCardBody = styled.div`
 `
 
 export const StyledCardFooter = styled(Button)`
-    color: midnightblue;
+    color: steelblue;
     border-color: transparent;
     text-align: center;
     background-color: mintcream;
@@ -47,6 +44,5 @@ export const StyledCardFooter = styled(Button)`
 export const StyledDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     font-family:  Roboto, sans-serif;
 `

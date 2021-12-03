@@ -1,76 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  Card,
-  CardTitle,
-  Button,
-  Row,
-  Col,
-  Container,
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownItem,
-  DropdownMenu,
-  UncontrolledButtonDropdown,
+  Button, Col, Dropdown, DropdownMenu, DropdownToggle
 } from "reactstrap";
-
 import Bookmark from "../Bookmark";
-
 import {
-  StyledCard,
-  StyledCardTitle,
-  StyledDiv,
-  StyledCardBody,
-  StyledDropdown,
-  StyledCardHeader,
-  StyledDropdownButton,
-  StyledCardFooter,
+  StyledCard, StyledCardBody, StyledCardFooter, StyledCardHeader, StyledCardTitle,
+  StyledDiv, StyledDropdownButton
 } from "./styledGroup";
 
-function Group() {
-  const groups = [
-    { id: 1, groupName: "Bookmarks" },
-    { id: 2, groupName: "Search" },
-    { id: 3, groupName: "Study" },
-    { id: 4, groupName: "News" },
-    { id: 5, groupName: "Game" },
-    { id: 6, groupName: "Movie" },
-    { id: 7, groupName: "Music" },
-    { id: 8, groupName: "Novel" },
-  ];
-  const grouplist = groups.map((group) => (
-    <StyledCard>
-      <StyledCardHeader>
-        <StyledCardTitle key={group.id} id={group.id}>
-          {group.groupName}
+
+
+const Group = ({id, groupName}) => {
+  const [nameGroup, setNameGroup] = useState(groupName)
+  const [editMode, setEditMode] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  ; //array
+  const toggle = ()=>{
+    setDropdownOpen(!dropdownOpen)
+  }
+  
+  const handleChange = (e)=>{
+    setNameGroup(e.target.value)
+  }
+  const handleSubmit =()=>{
+    alert(nameGroup);
+    setEditMode(!editMode);
+  }
+
+  return <StyledDiv><Col xs={6}>
+  <StyledCard>
+    <StyledCardHeader>
+           
+      <div>
+        {editMode || (
+          <StyledCardTitle key={id} id={ id}>
+          { nameGroup}
         </StyledCardTitle>
+        )}
+          {editMode && (
+            
+            <Col xs={4} style={{ display: "inline" }}>
+              <input
+              value={nameGroup}
+              onChange={handleChange}
+                placeholder="Rename"
+                style={{
+                  backgroundColor: "transparent",
+                  borderColor: "transparent",
+                  borderBottomColor: "steelblue",
+                }}
+              />
+              <Button onClick={handleSubmit} color="success" outline >
+                Save
+              </Button>
+            </Col>
+            
+          )}
+        </div>
 
-        <UncontrolledButtonDropdown>
-          <DropdownToggle color="">
-            <i class="fal fa-ellipsis-v-alt"></i>
-          </DropdownToggle>
-          <DropdownMenu>
-            <StyledDropdownButton color="danger" outline className="button2">
-              <i class="fas fa-trash-alt"></i>
-              Delete
-            </StyledDropdownButton>
-            <StyledDropdownButton color="success" outline className="button1">
-              <i class="fas fa-edit"></i>
-              Edit
-            </StyledDropdownButton>
-          </DropdownMenu>
-        </UncontrolledButtonDropdown>
-      </StyledCardHeader>
-      <StyledCardBody>
-        <Bookmark key={group.id} />
-      </StyledCardBody>
 
-      <StyledCardFooter color="">
-        <i class="fas fa-plus">&ensp;Add a new bookmark</i>
-      </StyledCardFooter>
-    </StyledCard>
-  ));
+      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+        <DropdownToggle  color="">
+          <i className="fal fa-ellipsis-v-alt"></i>
+        </DropdownToggle>
+        <DropdownMenu>
+          <StyledDropdownButton
+            color="link"
+            outline
+            onClick={() => {
+              setEditMode(!editMode);
+              toggle()
+            }}
+          >
+            Rename
+          </StyledDropdownButton>
+          <StyledDropdownButton color="link" outline>
+            Delete
+          </StyledDropdownButton>
+        </DropdownMenu>
+      </Dropdown>
+    </StyledCardHeader>
 
-  return <StyledDiv>{grouplist}</StyledDiv>;
-}
+    <StyledCardBody>
+      <Bookmark key={ id} />
+    </StyledCardBody>
+
+    <StyledCardFooter color="">
+      <i className="fas fa-plus">&ensp;Add a new bookmark</i>
+    </StyledCardFooter>
+  </StyledCard>
+</Col></StyledDiv>;
+};
 
 export default Group;

@@ -1,24 +1,27 @@
 import React from "react";
-import { Button, Col, Container, Navbar, Row } from "reactstrap";
-import { StyledHeader, StyledAddButton } from "./StyledHeader";
+import { Button, Col, Container, Input, InputGroup, Row } from "reactstrap";
+import {
+  StyledHeaderTitle,
+  StyledAddButton,
+  StyledInput,
+  StyledHeader,
+} from "./StyledHeader";
 
 const Header = () => {
-  // const styles = {
-  //   col: {
-  //     margin: "15px auto",
-  //   },
-  // };
-
   return (
-    <Container>
-      <StyledHeader>
+    <StyledHeader>
+      <StyledHeaderTitle>
         <h1>Bookmark Management</h1>
-      </StyledHeader>
-      <Row></Row>
-      <StyledAddButton>
-        <i class="fas fa-plus">&ensp;Add New</i>
-      </StyledAddButton>
-    </Container>
+      </StyledHeaderTitle>
+      <Col xs={4}>
+        <StyledInput>
+          <Input placeholder="New Category" />
+          <StyledAddButton color="">
+            <i class="fas fa-plus"></i>
+          </StyledAddButton>
+        </StyledInput>
+      </Col>
+    </StyledHeader>
   );
 };
 Header.propTypes = {};
