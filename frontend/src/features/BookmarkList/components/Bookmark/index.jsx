@@ -20,8 +20,8 @@ const Bookmark = ({ id, title, crudBookmark, setBookId, toggleShow }) => {
           target="_blank"
           rel="noreferrer"
         >
-          {title.length > 30
-            ? `${title.substring(0, 25)} ...`
+          {title.length > 40
+            ? `${title.substring(0, 40)} ...`
             : title}
         </StyledLink>
         <StyledButton

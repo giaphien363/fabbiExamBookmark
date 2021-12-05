@@ -4,7 +4,7 @@ import {
   DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory
+  UpdateCategory,
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import { StyledMain } from "./styledMain";
@@ -70,7 +70,6 @@ const Main = () => {
       case "UPDATE":
         if (id < 0) return;
         if (!checkCateNameValid(value)) {
-          alert("Category name is invalid, Try again later!!!");
           return;
         } else {
           UpdateCategory(id, { categoryName: value }).then((res) => {
@@ -107,41 +106,52 @@ const Main = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     crudCategory("INSERT", -1, inputGroup);
+    setInputGroup("");
   };
 
   return (
     <>
       <StyledMain>
         <Row>
-          <Col md="8" style={{ margin: "0 auto" }}>
-            <Form onSubmit={handleSubmit}>
-              <div style={{ display: "flex" }}>
-                <Input
-                  type="text"
-                  name="group"
-                  value={inputGroup}
-                  onChange={(e) => {
-                    setInputGroup(e.target.value);
-                  }}
-                />
-                <Button type="submit" color="primary">
-                  Create
-                </Button>
-              </div>
-            </Form>
-
-            {/* map groups */}
-            {categories.map((item, i) => (
-              <Group
-                key={i}
-                cateName={item.categoryName}
-                id={item.id}
-                tempBookmark={tempBookmark}
-                categoriesSelect={categoriesSelect}
-                crudCategory={crudCategory}
-                setTempBookmark={setTempBookmark}
+          <Col md="12">
+            <Form
+              onSubmit={handleSubmit}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                float: "right",
+                width: "49%",
+              }}
+            >
+              <Input
+                type="text"
+                name="group"
+                value={inputGroup}
+                onChange={(e) => {
+                  setInputGroup(e.target.value);
+                }}
+                style={{ width: "85%" }}
               />
-            ))}
+              <Button type="submit" color="primary">
+                Create
+              </Button>
+            </Form>
+          </Col>
+          <Col md="12">
+            <Row>
+              {/* map groups */}
+              {categories.map((item, i) => (
+                <Group
+                  key={i}
+                  cateName={item.categoryName}
+                  id={item.id}
+                  tempBookmark={tempBookmark}
+                  categoriesSelect={categoriesSelect}
+                  crudCategory={crudCategory}
+                  setTempBookmark={setTempBookmark}
+                />
+              ))}
+            </Row>
           </Col>
         </Row>
       </StyledMain>

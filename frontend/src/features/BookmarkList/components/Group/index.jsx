@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { Col, Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 import {
-  Button,
-  Col,
-  Dropdown,
-  DropdownMenu,
-  DropdownToggle
-} from "reactstrap";
-import {
-  DelBookmark, GetAllBookmark, InsertBookmark, UpdateBookmark
+  DelBookmark,
+  GetAllBookmark,
+  InsertBookmark,
+  UpdateBookmark,
 } from "../../../../API/BookmarkAPI";
 import AddEdit from "../../components/AddEdit";
 import Bookmark from "../Bookmark";
@@ -18,10 +15,9 @@ import {
   StyledCardFooter,
   StyledCardHeader,
   StyledCardTitle,
-  StyledDiv,
-  StyledDropdownButton
+  StyledCardTitleInput,
+  StyledDropdownButton,
 } from "./styledGroup";
-
 
 const Group = ({
   id,
@@ -119,72 +115,77 @@ const Group = ({
 
   return (
     <>
-      <StyledDiv>
-        <Col xs={6}>
-          <StyledCard>
-            <StyledCardHeader>
-              <div>
-                {editMode || (
-                  <StyledCardTitle key={id} id={id}>
-                    {categoryName}
-                  </StyledCardTitle>
-                )}
-                {editMode && (
-                  <Col xs={4} style={{ display: "inline" }}>
-                    <input
-                      value={categoryName}
-                      onChange={handleChangeCateName}
-                      style={{
-                        backgroundColor: "transparent",
-                        borderColor: "transparent",
-                        borderBottomColor: "steelblue",
-                      }}
-                    />
-                    <Button onClick={handleUpdateCate} color="success" outline>
-                      Save
-                    </Button>
-                  </Col>
-                )}
-              </div>
-
+      <Col md={6}>
+        <StyledCard>
+          <StyledCardHeader>
+            {editMode || (
+              <StyledCardTitle key={id} id={id}>
+                {categoryName}
+              </StyledCardTitle>
+            )}
+            {editMode && (
+              <form onSubmit={handleUpdateCate} style={{ width: "100%" }}>
+                <StyledCardTitleInput
+                  value={categoryName}
+                  autoFocus
+                  onChange={handleChangeCateName}
+                />
+              </form>
+            )}
+            {editMode || (
               <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
-                <DropdownToggle color="">
+                <DropdownToggle>
                   <i className="fal fa-ellipsis-v-alt"></i>
                 </DropdownToggle>
                 <DropdownMenu>
-                  <StyledDropdownButton color="link" outline>
-                    Rename
-                  </StyledDropdownButton>
                   <StyledDropdownButton
-                    onClick={handleDeleteCate}
                     color="link"
                     outline
+                    onClick={() => {
+                      setEditMode((prev) => !prev);
+                      setDropdownOpen((prev) => !prev);
+                    }}
                   >
-                    Delete
+                    Rename
                   </StyledDropdownButton>
+
+                  {bookmark.length <= 0 && (
+                    <StyledDropdownButton
+                      onClick={handleDeleteCate}
+                      color="link"
+                      outline
+                    >
+                      Delete
+                    </StyledDropdownButton>
+                  )}
                 </DropdownMenu>
               </Dropdown>
-            </StyledCardHeader>
+            )}
+          </StyledCardHeader>
 
-            <StyledCardBody>
-              {bookmark.map((item, i) => (
-                <Bookmark
-                  key={i}
-                  setBookId={setBookId}
-                  toggleShow={toggleShow}
-                  crudBookmark={crudBookmark}
-                  id={item["id"]}
-                  title={item.title}
-                />
-              ))}
-            </StyledCardBody>
+          <StyledCardBody>
+            {bookmark.map((item, i) => (
+              <Bookmark
+                key={i}
+                setBookId={setBookId}
+                toggleShow={toggleShow}
+                crudBookmark={crudBookmark}
+                id={item["id"]}
+                title={item.title}
+              />
+            ))}
+          </StyledCardBody>
 
-            <StyledCardFooter color="">
-              <i className="fas fa-plus">&ensp;Add a new bookmark</i>
-            </StyledCardFooter>
-          </StyledCard>
-        </Col>
-      </StyledDiv>
+          <StyledCardFooter
+            color="primary"
+            onClick={() => {
+              toggleShow();
+            }}
+          >
+            <i className="fas fa-plus">&ensp;Add a new bookmark</i>
+          </StyledCardFooter>
+        </StyledCard>
+      </Col>
 
       {/* modal */}
       <Modal
