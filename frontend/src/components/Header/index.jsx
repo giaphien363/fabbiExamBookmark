@@ -1,23 +1,27 @@
 import React from "react";
-import { Col, Container, Row } from "reactstrap";
+import { Button, Col, Container, Input, InputGroup, Row } from "reactstrap";
+import {
+  StyledHeaderTitle,
+  StyledAddButton,
+  StyledInput,
+  StyledHeader,
+} from "./StyledHeader";
 
 const Header = () => {
-  const styles = {
-    col: {
-      margin: "15px auto",
-    },
-  };
-
   return (
-    <div>
-      <Container>
-        <Row className="justify-content-between">
-          <Col xs="6" style={styles.col}>
-            <h3>Bookmark management!</h3>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <StyledHeader>
+      <StyledHeaderTitle>
+        <h1>Bookmark Management</h1>
+      </StyledHeaderTitle>
+      <Col xs={4}>
+        <StyledInput>
+          <Input placeholder="New Category" />
+          <StyledAddButton color="">
+            <i class="fas fa-plus"></i>
+          </StyledAddButton>
+        </StyledInput>
+      </Col>
+    </StyledHeader>
   );
 };
 Header.propTypes = {};

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Bookmark from "../Bookmark";
-import { Button, Input } from "reactstrap";
 import { Modal } from "react-bootstrap";
 
 import AddEdit from "../../components/AddEdit";
@@ -10,6 +9,23 @@ import {
   UpdateBookmark,
   InsertBookmark,
 } from "../../../../API/BookmarkAPI";
+import {
+  Button,
+  Col,
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+} from "reactstrap";
+import {
+  StyledCard,
+  StyledCardBody,
+  StyledCardFooter,
+  StyledCardHeader,
+  StyledCardTitle,
+  StyledDiv,
+  StyledDropdownButton,
+} from "./styledGroup";
 
 const Group = ({
   id,
@@ -26,6 +42,11 @@ const Group = ({
 
   const [categoryName, setCategoryName] = useState(cateName);
   const [bookmark, setBookmark] = useState([]);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDrop = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
   const toggleShow = () => setShowModal((prev) => !prev);
 
   useEffect(() => {
@@ -33,7 +54,6 @@ const Group = ({
       setBookmark(res);
     });
   }, [tempBookmark]);
-
 
   const crudBookmark = (type = null, id = -1, value = null) => {
     switch (type) {
@@ -87,6 +107,10 @@ const Group = ({
     }
   };
 
+  const handleChangeCateName = (e) => {
+    setCategoryName(e.target.value);
+  };
+
   const handleUpdateCate = () => {
     crudCategory("UPDATE", id, categoryName);
     setEditMode(false);
@@ -98,63 +122,73 @@ const Group = ({
   };
 
   return (
-    <div style={{ marginTop: "20px", border: "2px solid red", padding: "5px" }}>
-      <h3>id: {id}</h3>
-      <div>
-        {editMode || categoryName}
+    <>
+      <StyledDiv>
+        <Col xs={6}>
+          <StyledCard>
+            <StyledCardHeader>
+              <div>
+                {editMode || (
+                  <StyledCardTitle key={id} id={id}>
+                    {categoryName}
+                  </StyledCardTitle>
+                )}
+                {editMode && (
+                  <Col xs={4} style={{ display: "inline" }}>
+                    <input
+                      value={categoryName}
+                      onChange={handleChangeCateName}
+                      style={{
+                        backgroundColor: "transparent",
+                        borderColor: "transparent",
+                        borderBottomColor: "steelblue",
+                      }}
+                    />
+                    <Button onClick={handleUpdateCate} color="success" outline>
+                      Save
+                    </Button>
+                  </Col>
+                )}
+              </div>
 
-        {editMode && (
-          <div style={{ display: "flex" }}>
-            <Input
-              value={categoryName}
-              onChange={(e) => {
-                setCategoryName(e.target.value);
-              }}
-            />
-            <Button onClick={handleUpdateCate}>Update</Button>
-          </div>
-        )}
-      </div>
+              <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
+                <DropdownToggle color="">
+                  <i className="fal fa-ellipsis-v-alt"></i>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <StyledDropdownButton color="link" outline>
+                    Rename
+                  </StyledDropdownButton>
+                  <StyledDropdownButton
+                    onClick={handleDeleteCate}
+                    color="link"
+                    outline
+                  >
+                    Delete
+                  </StyledDropdownButton>
+                </DropdownMenu>
+              </Dropdown>
+            </StyledCardHeader>
 
-      <Button
-        color="link"
-        onClick={() => {
-          setEditMode(!editMode);
-        }}
-      >
-        change
-      </Button>
+            <StyledCardBody>
+              {bookmark.map((item, i) => (
+                <Bookmark
+                  key={i}
+                  setBookId={setBookId}
+                  toggleShow={toggleShow}
+                  crudBookmark={crudBookmark}
+                  id={item["id"]}
+                  title={item.title}
+                />
+              ))}
+            </StyledCardBody>
 
-      <Button
-        color="primary"
-        onClick={() => {
-          setBookId(null);
-          toggleShow();
-        }}
-      >
-        New bookmark
-      </Button>
-
-      {bookmark.length <= 0 && (
-        <Button color="danger" onClick={handleDeleteCate}>
-          Delete
-        </Button>
-      )}
-      <hr />
-      <div
-        style={{ border: "2px solid gray", display: "flex", padding: "5px" }}
-      >
-        {bookmark.map((item, i) => (
-          <Bookmark
-            key={i}
-            setBookId={setBookId}
-            toggleShow={toggleShow}
-            crudBookmark={crudBookmark}
-            id={item["id"]}
-            title={item.title}
-          />
-        ))}
-      </div>
+            <StyledCardFooter color="">
+              <i className="fas fa-plus">&ensp;Add a new bookmark</i>
+            </StyledCardFooter>
+          </StyledCard>
+        </Col>
+      </StyledDiv>
 
       {/* modal */}
       <Modal
@@ -173,10 +207,6 @@ const Group = ({
           />
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 };
-
-Group.propTypes = {};
-
-export default Group;

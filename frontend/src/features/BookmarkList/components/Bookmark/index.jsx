@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "reactstrap";
+import { StyledBookmark, StyledButton, StyledLink } from "./styledBookmark";
 
 const Bookmark = ({ id, title, crudBookmark, setBookId, toggleShow }) => {
   const handleDel = () => {
@@ -12,25 +12,35 @@ const Bookmark = ({ id, title, crudBookmark, setBookId, toggleShow }) => {
   };
 
   return (
-    <div style={{ border: "2px solid deeppink", padding: "5px" }}>
-      <p>bookmark Id : {id}</p>
-      <p>bookmark Title : {title}</p>
-      <Button
-        style={{ marginRight: "10px" }}
-        color="success"
-        onClick={handleUpdate}
-      >
-        Update
-      </Button>
+    <>
+      <StyledBookmark>
+        <StyledLink
+          key={bookmark.id}
+          href={bookmark.url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {title}
+        </StyledLink>
 
-      <Button
-        style={{ marginRight: "10px" }}
-        color="danger"
-        onClick={handleDel}
-      >
-        Delete
-      </Button>
-    </div>
+        <StyledButton
+          color="success"
+          outline
+          className="button1"
+          onClick={handleUpdate}
+        >
+          <i class="fas fa-edit"></i>
+        </StyledButton>
+        <StyledButton
+          color="danger"
+          outline
+          className="button2"
+          onClick={handleDel}
+        >
+          <i class="fas fa-trash-alt"></i>
+        </StyledButton>
+      </StyledBookmark>
+    </>
   );
 };
 
