@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Bookmark from "../Bookmark";
 import { Modal } from "react-bootstrap";
-
-import AddEdit from "../../components/AddEdit";
-import {
-  GetAllBookmark,
-  DelBookmark,
-  UpdateBookmark,
-  InsertBookmark,
-} from "../../../../API/BookmarkAPI";
 import {
   Button,
   Col,
   Dropdown,
   DropdownMenu,
-  DropdownToggle,
-  Input,
+  DropdownToggle
 } from "reactstrap";
+import {
+  DelBookmark, GetAllBookmark, InsertBookmark, UpdateBookmark
+} from "../../../../API/BookmarkAPI";
+import AddEdit from "../../components/AddEdit";
+import Bookmark from "../Bookmark";
 import {
   StyledCard,
   StyledCardBody,
@@ -24,8 +19,9 @@ import {
   StyledCardHeader,
   StyledCardTitle,
   StyledDiv,
-  StyledDropdownButton,
+  StyledDropdownButton
 } from "./styledGroup";
+
 
 const Group = ({
   id,
@@ -210,3 +206,5 @@ const Group = ({
     </>
   );
 };
+
+export default Group;

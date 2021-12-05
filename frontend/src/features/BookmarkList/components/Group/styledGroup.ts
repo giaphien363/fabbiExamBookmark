@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Button, Card, CardTitle, Col, ListGroup, Row, UncontrolledButtonDropdown} from 'reactstrap';
+import { Button, Card, CardTitle, Col } from 'reactstrap';
+import styled from 'styled-components';
 
 
 export const StyledCard  = styled(Card)`

@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
-import { Col, Container, Row, Button, Form, Input } from "reactstrap";
-
-import Group from "../../components/Group";
-import { StyledMain } from "./styledMain";
-
+import { useEffect, useState } from "react";
+import { Button, Col, Form, Input, Row } from "reactstrap";
 import {
+  DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory,
-  DelCategory,
+  UpdateCategory
 } from "../../../../API/CategoryAPI";
+import Group from "../../components/Group";
+import { StyledMain } from "./styledMain";
 
 const Main = () => {
   const [inputGroup, setInputGroup] = useState("");
@@ -112,8 +110,8 @@ const Main = () => {
   };
 
   return (
-    <StyledMain>
-      <Container>
+    <>
+      <StyledMain>
         <Row>
           <Col md="8" style={{ margin: "0 auto" }}>
             <Form onSubmit={handleSubmit}>
@@ -146,8 +144,8 @@ const Main = () => {
             ))}
           </Col>
         </Row>
-      </Container>
-    </StyledMain>
+      </StyledMain>
+    </>
   );
 };
 Main.propTypes = {};

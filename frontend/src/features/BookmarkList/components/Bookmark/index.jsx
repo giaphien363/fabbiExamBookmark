@@ -15,13 +15,23 @@ const Bookmark = ({ id, title, crudBookmark, setBookId, toggleShow }) => {
     <>
       <StyledBookmark>
         <StyledLink
-          key={bookmark.id}
-          href={bookmark.url}
+          key={id}
+          // href={bookmark.url}
           target="_blank"
           rel="noreferrer"
         >
-          {title}
+          {title.length > 30
+            ? `${title.substring(0, 25)} ...`
+            : title}
         </StyledLink>
+        <StyledButton
+          color="danger"
+          outline
+          className="button2"
+          onClick={handleDel}
+        >
+          <i className="fas fa-trash-alt"></i>
+        </StyledButton>
 
         <StyledButton
           color="success"
@@ -29,15 +39,7 @@ const Bookmark = ({ id, title, crudBookmark, setBookId, toggleShow }) => {
           className="button1"
           onClick={handleUpdate}
         >
-          <i class="fas fa-edit"></i>
-        </StyledButton>
-        <StyledButton
-          color="danger"
-          outline
-          className="button2"
-          onClick={handleDel}
-        >
-          <i class="fas fa-trash-alt"></i>
+          <i className="fas fa-edit"></i>
         </StyledButton>
       </StyledBookmark>
     </>
