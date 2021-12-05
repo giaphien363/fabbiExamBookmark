@@ -3,8 +3,6 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import NotFound from "./components/NotFound";
 
-import "./App.css";
-
 const Bookmark = React.lazy(() => import("./features/BookmarkList"));
 
 function App() {
@@ -15,7 +13,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <Switch>
-            <Redirect exact from="/" to="/bookmark/add" />
+            <Redirect exact from="/" to="/bookmark" />
             <Route path="/bookmark" component={Bookmark} /> 
             <Route component={NotFound} /> 
           </Switch> 
