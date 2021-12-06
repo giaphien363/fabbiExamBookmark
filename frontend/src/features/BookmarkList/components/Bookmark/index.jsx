@@ -1,28 +1,23 @@
 import React from "react";
 import { StyledBookmark, StyledButton, StyledLink } from "./styledBookmark";
 
-const Bookmark = ({ id, title, crudBookmark, setBookId, toggleShow }) => {
+const Bookmark = ({ item, crudBookmark, setBookId, toggleShow }) => {
   const handleDel = () => {
-    crudBookmark("DELETE", id);
+    crudBookmark("DELETE", item.id);
   };
 
   const handleUpdate = () => {
-    setBookId(id);
+    setBookId(item.id);
     toggleShow();
   };
 
   return (
     <>
       <StyledBookmark>
-        <StyledLink
-          key={id}
-          // href={bookmark.url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {title.length > 40
-            ? `${title.substring(0, 40)} ...`
-            : title}
+        <StyledLink href={item.url} target="_blank" rel="noreferrer">
+          {item.title.length > 40
+            ? `${item.title.substring(0, 40)} ...`
+            : item.title}
         </StyledLink>
         <StyledButton
           color="danger"
