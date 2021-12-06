@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Button, Col, Form, Input, Row } from "reactstrap";
 import {
   DelCategory,
@@ -7,14 +7,21 @@ import {
   UpdateCategory,
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
+import ListSearch from "../../components/ListSearch";
 import { StyledMain } from "./styledMain";
+
+import { SearchBookmark } from "../../../../API/BookmarkAPI";
 
 const Main = () => {
   const [inputGroup, setInputGroup] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
   const [tempBookmark, setTempBookmark] = useState(null);
 
   const [categories, setCategories] = useState([]);
+  const [searchBookmark, setSearchBookmark] = useState([]);
   const [categoriesSelect, setCategoriesSelect] = useState([]);
+
+  const typeTimeOut = useRef(null);
 
   useEffect(() => {
     document.title = "List Bookmark";
@@ -73,7 +80,6 @@ const Main = () => {
           return;
         } else {
           UpdateCategory(id, { categoryName: value }).then((res) => {
-            alert("Update successfully!!!");
             var listCate = [...categories];
             let index = listCate.findIndex((obj) => obj.id === id);
 
@@ -88,7 +94,6 @@ const Main = () => {
         // DelCategory
 
         DelCategory(id).then((res) => {
-          alert("Delete successfully!!!");
           var temp = [...categories];
           var listCate = temp.filter((ele) => {
             return ele.id !== id;
@@ -109,51 +114,96 @@ const Main = () => {
     setInputGroup("");
   };
 
+  const changeInputSearch = (e) => {
+    // call api here
+    setInputSearch(e.target.value);
+    if (e.target.value == "") {
+      setSearchBookmark([]);
+      return;
+    }
+
+    // clear before setTimeOut
+    if (typeTimeOut.current) {
+      clearTimeout(typeTimeOut.current);
+    }
+
+    typeTimeOut.current = setTimeout(() => {
+      SearchBookmark(e.target.value).then((res) => {
+        setSearchBookmark(res);
+      });
+    }, 500);
+  };
+
   return (
     <>
       <StyledMain>
-        <Row>
-          <Col md="12">
-            <Form
-              onSubmit={handleSubmit}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                float: "right",
-                width: "49%",
-              }}
-            >
-              <Input
-                type="text"
-                name="group"
-                value={inputGroup}
-                onChange={(e) => {
-                  setInputGroup(e.target.value);
-                }}
-                style={{ width: "85%" }}
-              />
-              <Button type="submit" color="primary">
-                Create
-              </Button>
-            </Form>
+        <Row className="my-4">
+          <Col md="6">
+            <h2>Bookmarks</h2>
           </Col>
-          <Col md="12">
-            <Row>
-              {/* map groups */}
-              {categories.map((item, i) => (
-                <Group
-                  key={i}
-                  cateName={item.categoryName}
-                  id={item.id}
-                  tempBookmark={tempBookmark}
-                  categoriesSelect={categoriesSelect}
-                  crudCategory={crudCategory}
-                  setTempBookmark={setTempBookmark}
-                />
-              ))}
-            </Row>
+          <Col md="6">
+            <Input
+              placeholder="Search by title"
+              value={inputSearch}
+              onChange={changeInputSearch}
+            />
           </Col>
         </Row>
+        {/* if searching */}
+        {searchBookmark.length > 0 && (
+          <div>
+            {searchBookmark.map((item, i) => (
+              <ListSearch key={i} item={item} />
+            ))}
+          </div>
+        )}
+
+        {/* if not search */}
+        {inputSearch.length > 0 || (
+          <Row>
+            <Col md="12">
+              <Form
+                onSubmit={handleSubmit}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  float: "right",
+                  width: "49%",
+                }}
+              >
+                <Input
+                  type="text"
+                  name="group"
+                  value={inputGroup}
+                  onChange={(e) => {
+                    setInputGroup(e.target.value);
+                  }}
+                  style={{ width: "75%" }}
+                  placeholder="New group"
+                />
+                <Button type="submit" color="primary">
+                  Create Group
+                </Button>
+              </Form>
+            </Col>
+            <Col md="12">
+              <Row>
+                {/* map groups */}
+                {categories.map((item, i) => (
+                  <Group
+                    key={i}
+                    cateName={item.categoryName}
+                    id={item.id}
+                    tempBookmark={tempBookmark}
+                    categoriesSelect={categoriesSelect}
+                    crudCategory={crudCategory}
+                    setTempBookmark={setTempBookmark}
+                  />
+                ))}
+              </Row>
+            </Col>
+          </Row>
+        )}
       </StyledMain>
     </>
   );

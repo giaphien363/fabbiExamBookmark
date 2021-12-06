@@ -30,10 +30,10 @@ class BookmarkAPIView(APIView) :
         if cateId is not None:
             bookmark = bookmark.filter(category=cateId)
 
-        keyword = self.request.query_params.get('kw')
+        title = self.request.query_params.get('title')
 
-        if keyword is not None:
-            bookmark = bookmark.filter(title__icontains=keyword)
+        if title is not None:
+            bookmark = bookmark.filter(title__icontains=title)
 
         serializer = BookmarkSerializer(bookmark, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

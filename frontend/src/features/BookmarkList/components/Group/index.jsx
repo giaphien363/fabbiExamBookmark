@@ -170,8 +170,7 @@ const Group = ({
                 setBookId={setBookId}
                 toggleShow={toggleShow}
                 crudBookmark={crudBookmark}
-                id={item["id"]}
-                title={item.title}
+                item={item}
               />
             ))}
           </StyledCardBody>

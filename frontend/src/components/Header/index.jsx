@@ -31,11 +31,6 @@ const Header = () => {
           </ul>
         </div>
       </nav>
-      {location == "/bookmark" && (
-        <StyledHeaderTitle>
-          <h1>Bookmark Management</h1>
-        </StyledHeaderTitle>
-      )}
     </StyledHeader>
   );
 };
