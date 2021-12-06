@@ -14,7 +14,7 @@ const Group = ({id, groupName}) => {
   const [nameGroup, setNameGroup] = useState(groupName)
   const [editMode, setEditMode] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  ; //array
+
   const toggle = ()=>{
     setDropdownOpen(!dropdownOpen)
   }
@@ -39,13 +39,12 @@ const Group = ({id, groupName}) => {
         )}
           {editMode && (
             
-            <Col xs={4} style={{ display: "inline" }}>
+            <Col xs={5} style={{ display: "inline",width: "70%",}}>
               <input
               value={nameGroup}
               onChange={handleChange}
-                placeholder="Rename"
                 style={{
-                  backgroundColor: "transparent",
+                  backgroundColor: "red",
                   borderColor: "transparent",
                   borderBottomColor: "steelblue",
                 }}
@@ -60,7 +59,7 @@ const Group = ({id, groupName}) => {
 
 
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle  color="">
+        <DropdownToggle  color="" style={{position:"absolute"}}>
           <i className="fal fa-ellipsis-v-alt"></i>
         </DropdownToggle>
         <DropdownMenu>
