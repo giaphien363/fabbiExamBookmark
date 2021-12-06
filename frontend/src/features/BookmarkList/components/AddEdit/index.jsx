@@ -1,96 +1,101 @@
-import { Col, Row, Container, Button, FormGroup, Spinner } from "reactstrap";
-import { useParams } from "react-router-dom";
-import { FastField, Form, Formik } from "formik";
-
-import * as Yup from "yup";
 import { AddEditStyled } from "./styledAddEdit";
+import * as Yup from "yup";
+import { FastField, Form, Formik } from "formik";
+import { Button, FormGroup, Spinner } from "reactstrap";
+import { useEffect, useRef } from "react";
+
+import { GetBookmark } from "../../../../API/BookmarkAPI";
 import SelectField from "../../../../custom-fields/SelectField";
 import InputField from "../../../../custom-fields/InputField";
 
-// fake data
-const CATEGORY_OPTIONS = [
-  { value: 1, label: "Default" },
-  { value: 2, label: "Education" },
-  { value: 3, label: "Nature" },
-  { value: 4, label: "Animals" },
-  { value: 5, label: "Favourite" },
-];
-
 const AddEdit = (props) => {
-  const { id } = useParams();
-  const isAddMode = !id;
+  const { groupId, bookId, categoriesSelect, crudBookmark, toggleShow } = props;
+  const isAddMode = !bookId;
+  const formikRef = useRef();
 
   const initialValues = {
     title: "",
     url: "",
-    categoryId: null,
+    category: 1,
   };
+
+  useEffect(() => {
+    if (!isAddMode) {
+      GetBookmark(bookId).then((res) => {
+        if (formikRef.current) {
+          formikRef.current.setFieldValue("title", res["title"]);
+          formikRef.current.setFieldValue("url", res["url"]);
+          formikRef.current.setFieldValue("category", res["category"]);
+        }
+      });
+    } else {
+      if (groupId != null && formikRef.current) {
+        formikRef.current.setFieldValue("category", groupId);
+      }
+    }
+  }, []);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("This field is required."),
     url: Yup.string().required("This field is required."),
-    categoryId: Yup.number().required("This field is required.").nullable(),
+    category: Yup.number().required("This field is required.").nullable(),
   });
 
   const handleSubmit = (value) => {
-    console.log(`value: `, { value });
+    if (isAddMode) {
+      crudBookmark("INSERT", -1, value);
+    } else {
+      crudBookmark("UPDATE", bookId, value);
+    }
   };
 
   return (
     <AddEditStyled>
-      <Container>
-        <Row>
-          <Col>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              {(formikProps) => {
-                // do something here ...
-                const { isSubmitting } = formikProps;
-                // console.log({ values, errors, touched });
+      <Formik
+        innerRef={formikRef}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => {
+          return (
+            <Form>
+              <FastField
+                name="title"
+                component={InputField}
+                label="Title"
+                placeholder="Title of website..."
+              />
 
-                return (
-                  <Form>
-                    <FastField
-                      name="title"
-                      component={InputField}
-                      label="Title"
-                      placeholder="Title of website..."
-                    />
+              <FastField
+                name="url"
+                component={InputField}
+                label="Url"
+                placeholder="https://www.google.com/"
+              />
 
-                    <FastField
-                      name="url"
-                      component={InputField}
-                      label="Url"
-                      placeholder="https://www.google.com/"
-                    />
+              <FastField
+                name="category"
+                component={SelectField}
+                label="Category"
+                placeholder="What's your group?"
+                options={categoriesSelect}
+                disabled={isAddMode ? true : false}
+              />
 
-                    <FastField
-                      name="categoryId"
-                      component={SelectField}
-                      label="Category"
-                      placeholder="What's your group category?"
-                      options={CATEGORY_OPTIONS}
-                    />
-
-                    <FormGroup>
-                      <Button
-                        type="submit"
-                        color={isAddMode ? "primary" : "success"}
-                      >
-                        {isSubmitting && <Spinner size="sm" />}
-                        {isAddMode ? "Create bookmark" : "Update your bookmark"}
-                      </Button>
-                    </FormGroup>
-                  </Form>
-                );
-              }}
-            </Formik>
-          </Col>
-        </Row>
-      </Container>
+              <FormGroup
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <Button type="submit" color={isAddMode ? "primary" : "success"}>
+                  {isSubmitting && <Spinner size="sm" />}
+                  {isAddMode ? "Create" : "Update"}
+                </Button>
+                <Button onClick={() => toggleShow()}>Cancel</Button>
+              </FormGroup>
+            </Form>
+          );
+        }}
+      </Formik>
     </AddEditStyled>
   );
 };

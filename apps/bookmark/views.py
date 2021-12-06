@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from apps.bookmark.models import BookMark
 from apps.bookmark.serializer import BookmarkSerializer
 from rest_framework.views import APIView
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -25,7 +26,12 @@ def getCategoryId(id):
 class BookmarkAPIView(APIView) :
     def get(self, request):
         bookmark = BookMark.objects.all()
+        cateId = self.request.query_params.get('category')
+        if cateId is not None:
+            bookmark = bookmark.filter(category=cateId)
+
         keyword = self.request.query_params.get('kw')
+
         if keyword is not None:
             bookmark = bookmark.filter(title__icontains=keyword)
 
@@ -33,14 +39,7 @@ class BookmarkAPIView(APIView) :
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        try:
-            request.data['category']
-        except:
-            request.data['category'] = 1
-
-        myData = {'title': request.data['title'], 'url': request.data['url'], 'category': getCategoryId(request.data['category'])}
-        
-        serializer = BookmarkSerializer(data=myData)
+        serializer = BookmarkSerializer(data=request.data)
         
         if serializer.is_valid():
             serializer.save()

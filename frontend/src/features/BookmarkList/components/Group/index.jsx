@@ -1,94 +1,211 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
+import { Col, Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 import {
-  Button, Col, Dropdown, DropdownMenu, DropdownToggle
-} from "reactstrap";
+  DelBookmark,
+  GetAllBookmark,
+  InsertBookmark,
+  UpdateBookmark,
+} from "../../../../API/BookmarkAPI";
+import AddEdit from "../../components/AddEdit";
 import Bookmark from "../Bookmark";
 import {
-  StyledCard, StyledCardBody, StyledCardFooter, StyledCardHeader, StyledCardTitle,
-  StyledDiv, StyledDropdownButton
+  StyledCard,
+  StyledCardBody,
+  StyledCardFooter,
+  StyledCardHeader,
+  StyledCardTitle,
+  StyledCardTitleInput,
+  StyledDropdownButton,
 } from "./styledGroup";
 
+const Group = ({
+  id,
+  cateName,
+  tempBookmark,
+  categoriesSelect,
+  crudCategory,
+  setTempBookmark,
+}) => {
+  const [showModal, setShowModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
+  const [bookId, setBookId] = useState(null);
 
-const Group = ({id, groupName}) => {
-  const [nameGroup, setNameGroup] = useState(groupName)
-  const [editMode, setEditMode] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [categoryName, setCategoryName] = useState(cateName);
+  const [bookmark, setBookmark] = useState([]);
 
-  const toggle = ()=>{
-    setDropdownOpen(!dropdownOpen)
-  }
-  
-  const handleChange = (e)=>{
-    setNameGroup(e.target.value)
-  }
-  const handleSubmit =()=>{
-    alert(nameGroup);
-    setEditMode(!editMode);
-  }
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDrop = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  const toggleShow = () => setShowModal((prev) => !prev);
 
-  return <StyledDiv><Col xs={6}>
-  <StyledCard>
-    <StyledCardHeader>
-           
-      <div>
-        {editMode || (
-          <StyledCardTitle key={id} id={ id}>
-          { nameGroup}
-        </StyledCardTitle>
-        )}
-          {editMode && (
-            
-            <Col xs={5} style={{ display: "inline",width: "70%",}}>
-              <input
-              value={nameGroup}
-              onChange={handleChange}
-                style={{
-                  backgroundColor: "red",
-                  borderColor: "transparent",
-                  borderBottomColor: "steelblue",
-                }}
+  useEffect(() => {
+    GetAllBookmark(id).then((res) => {
+      setBookmark(res);
+    });
+  }, [tempBookmark]);
+
+  const crudBookmark = (type = null, id = -1, value = null) => {
+    switch (type) {
+      case "INSERT":
+        InsertBookmark(value).then((res) => {
+          var listCate = [...bookmark];
+          listCate.push(res);
+          setBookmark(listCate);
+          toggleShow();
+        });
+        break;
+
+      case "UPDATE":
+        UpdateBookmark(id, value).then((res) => {
+          var listCate = [...bookmark];
+          let index = listCate.findIndex((obj) => obj.id === id);
+          let oldCate = listCate[index].category;
+
+          listCate[index].title = value.title;
+          listCate[index].url = value.url;
+          listCate[index].category = value.category;
+
+          if (oldCate === value.category) {
+            setBookmark(listCate);
+          } else {
+            setTempBookmark(listCate[index]);
+            listCate.splice(index, 1);
+            setBookmark(listCate);
+          }
+          toggleShow();
+        });
+        break;
+
+      case "DELETE":
+        if (id < 0) return;
+        if (window.confirm("Are you sure?")) {
+          DelBookmark(id).then((res) => {
+            alert("Delete successfully!");
+            var temp = [...bookmark];
+            var listCate = temp.filter((ele) => {
+              return ele.id !== id;
+            });
+            setBookmark(listCate);
+          });
+        }
+        break;
+
+      default:
+        alert("Please choose option!!!");
+        break;
+    }
+  };
+
+  const handleChangeCateName = (e) => {
+    setCategoryName(e.target.value);
+  };
+
+  const handleUpdateCate = () => {
+    crudCategory("UPDATE", id, categoryName);
+    setEditMode(false);
+  };
+
+  const handleDeleteCate = () => {
+    if (!window.confirm("Are you sure?")) return;
+    crudCategory("DELETE", id);
+  };
+
+  return (
+    <>
+      <Col md={6}>
+        <StyledCard>
+          <StyledCardHeader>
+            {editMode || (
+              <StyledCardTitle key={id} id={id}>
+                {categoryName}
+              </StyledCardTitle>
+            )}
+            {editMode && (
+              <form onSubmit={handleUpdateCate} style={{ width: "100%" }}>
+                <StyledCardTitleInput
+                  value={categoryName}
+                  autoFocus
+                  onChange={handleChangeCateName}
+                />
+              </form>
+            )}
+            {editMode || (
+              <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
+                <DropdownToggle>
+                  <i className="fal fa-ellipsis-v-alt"></i>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <StyledDropdownButton
+                    color="link"
+                    outline
+                    onClick={() => {
+                      setEditMode((prev) => !prev);
+                      setDropdownOpen((prev) => !prev);
+                    }}
+                  >
+                    Rename
+                  </StyledDropdownButton>
+
+                  {bookmark.length <= 0 && (
+                    <StyledDropdownButton
+                      onClick={handleDeleteCate}
+                      color="link"
+                      outline
+                    >
+                      Delete
+                    </StyledDropdownButton>
+                  )}
+                </DropdownMenu>
+              </Dropdown>
+            )}
+          </StyledCardHeader>
+
+          <StyledCardBody>
+            {bookmark.map((item, i) => (
+              <Bookmark
+                key={i}
+                setBookId={setBookId}
+                toggleShow={toggleShow}
+                crudBookmark={crudBookmark}
+                id={item["id"]}
+                title={item.title}
               />
-              <Button onClick={handleSubmit} color="success" outline >
-                Save
-              </Button>
-            </Col>
-            
-          )}
-        </div>
+            ))}
+          </StyledCardBody>
 
-
-      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle  color="" style={{position:"absolute"}}>
-          <i className="fal fa-ellipsis-v-alt"></i>
-        </DropdownToggle>
-        <DropdownMenu>
-          <StyledDropdownButton
-            color="link"
-            outline
+          <StyledCardFooter
+            color="primary"
             onClick={() => {
-              setEditMode(!editMode);
-              toggle()
+              toggleShow();
             }}
           >
-            Rename
-          </StyledDropdownButton>
-          <StyledDropdownButton color="link" outline>
-            Delete
-          </StyledDropdownButton>
-        </DropdownMenu>
-      </Dropdown>
-    </StyledCardHeader>
+            <i className="fas fa-plus">&ensp;Add a new bookmark</i>
+          </StyledCardFooter>
+        </StyledCard>
+      </Col>
 
-    <StyledCardBody>
-      <Bookmark key={ id} />
-    </StyledCardBody>
-
-    <StyledCardFooter color="">
-      <i className="fas fa-plus">&ensp;Add a new bookmark</i>
-    </StyledCardFooter>
-  </StyledCard>
-</Col></StyledDiv>;
+      {/* modal */}
+      <Modal
+        show={showModal}
+        backdrop="static"
+        keyboard={false}
+        onHide={toggleShow}
+      >
+        <Modal.Body>
+          <AddEdit
+            groupId={id}
+            bookId={bookId}
+            categoriesSelect={categoriesSelect}
+            crudBookmark={crudBookmark}
+            toggleShow={toggleShow}
+          />
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 };
 
 export default Group;
