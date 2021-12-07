@@ -46,12 +46,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # framework
-    'rest_framework',
-    'corsheaders',
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "rest_framework_simplejwt",
+    "dj_rest_auth",
     # create my apps
     "apps.bookmark",
-    "apps.category"
+    "apps.category",
+    "apps.social_login",
+    # Auth & social auth
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "dj_rest_auth.registration",
 ]
+SITE_ID = 1
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -152,9 +164,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
-    ],
-}

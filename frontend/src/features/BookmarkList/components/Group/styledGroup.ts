@@ -1,7 +1,7 @@
 import { Button, Card, CardTitle } from "reactstrap";
 import styled, { keyframes } from "styled-components";
 
-const animationInput = keyframes`
+export const animationInput = keyframes`
   0% { width: 0%; }
   25% { width: 25%; }
   50% { width: 50%; }
@@ -17,13 +17,14 @@ export const StyledCard = styled(Card)`
 export const StyledCardTitle = styled(CardTitle)`
   font-weight: bolder;
   margin: 0.3rem;
+  margin-left : 1rem;
 `;
 
 export const StyledCardTitleInput = styled.input`
   width: 100%;
   border: none;
-  padding: 0 0.5rem;
-  border-bottom: 2px outset red;
+  padding: 0 0.7rem;
+  border-bottom: 2px outset blue;
   &:focus {
     outline: none;
   }
@@ -39,7 +40,7 @@ export const StyledCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: aliceblue;
-  color: black;
+  color: steelblue;
 `;
 
 export const StyledCardBody = styled.div`
@@ -51,4 +52,6 @@ export const StyledCardBody = styled.div`
 export const StyledCardFooter = styled(Button)`
   border-color: transparent;
   text-align: center;
+  background-color: aliceblue;
+  color: steelblue;
 `;

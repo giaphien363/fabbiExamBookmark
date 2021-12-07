@@ -6,7 +6,5 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledHeaderTitle = styled(Row)`
-  font-family: serif;
-  text-align: center;
-  align-content: center;
+  
 `;
