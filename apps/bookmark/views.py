@@ -1,7 +1,7 @@
 from django.http.response import Http404
 from django.http.response import Http404
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -25,7 +25,7 @@ def getCategoryId(id):
 
 
 class BookmarkAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         bookmark = BookMark.objects.all()
@@ -52,7 +52,7 @@ class BookmarkAPIView(APIView):
 
 
 class DetailEvent(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_object(self, pk):
         try:

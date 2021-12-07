@@ -1,20 +1,27 @@
-import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import NotFound from '../../components/NotFound';
-import Main from './pages/Main';
+import React from "react";
+import { Route, Switch, useRouteMatch, useHistory } from "react-router-dom";
+import NotFound from "../../components/NotFound";
+import Main from "./pages/Main";
 
-Photo.propTypes = {};
+import { useToken } from "../../CustomHook/useToken";
 
-function Photo() {
+Bookmark.propTypes = {};
+
+function Bookmark() {
+  const { access } = useToken();
+
+  const history = useHistory();
+  if (!access) {
+    history.push("/login");
+  }
   const match = useRouteMatch();
 
   return (
     <Switch>
       <Route exact path={match.url} component={Main} />
-
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-export default Photo;
+export default Bookmark;

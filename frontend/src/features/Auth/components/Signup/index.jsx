@@ -1,11 +1,13 @@
 import React from "react";
+import { FormGroup } from "reactstrap";
 import {
-    FormGroup
-} from "reactstrap";
-import {
-    StyledButton, StyledContainer, StyledForgot, StyledInput, StyledLabel
+  StyledButton,
+  StyledContainer,
+  StyledForgot,
+  StyledInput,
+  StyledLabel,
 } from "./styledSignup";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Signup() {
   return (
@@ -17,7 +19,7 @@ function Signup() {
           <StyledLabel>Username</StyledLabel>
           <StyledInput placeholder="Your username" type="text" />
         </FormGroup>
-        
+
         <FormGroup>
           <StyledLabel>Email</StyledLabel>
           <StyledInput placeholder="Type your email" type="email" />
@@ -27,7 +29,6 @@ function Signup() {
           <StyledLabel>Password</StyledLabel>
           <StyledInput placeholder="Type your password" type="password" />
         </FormGroup>
-        
 
         <StyledButton>Join for free</StyledButton>
 
@@ -36,10 +37,10 @@ function Signup() {
           <p>Or</p>
           <div>
             <a href="#">
-              <i class="fab fa-facebook"></i>
+              <i className="fab fa-facebook"></i>
             </a>
             <a href="#" color="red">
-              <i class="fab fa-google"></i>
+              <i className="fab fa-google"></i>
             </a>
           </div>
           <hr />
@@ -55,4 +56,3 @@ function Signup() {
 }
 
 export default Signup;
-

@@ -2,11 +2,11 @@ import axios from "axios";
 
 const baseURL = `http://127.0.0.1:8000/api/v1/category/`;
 
-function GetAllCategory() {
+function GetAllCategory(access) {
   let url = baseURL;
   return new Promise((resolve, reject) => {
     axios
-      .get(url)
+      .get(url, { headers: { Authorization: `Bearer ${access}` } })
       .then(function (response) {
         // handle success
         resolve(response.data);
@@ -56,7 +56,7 @@ function InsertCategory(data) {
 }
 
 function UpdateCategory(id, data) {
-    /**
+  /**
    * param : data
    * example: {categoryName:""}
    *

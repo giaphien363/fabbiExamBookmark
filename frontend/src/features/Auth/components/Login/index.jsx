@@ -1,43 +1,92 @@
-import React from "react";
-import { FormGroup } from "reactstrap";
+import React, { useState } from "react";
+import GoogleLogin from "react-google-login";
+import { Link, useHistory } from "react-router-dom";
+import { Form, FormGroup } from "reactstrap";
+import { LoginAPI, LoginGoogle } from "../../../../API/AuthAPI";
+import { useToken } from "../../../../CustomHook/useToken";
+
 import {
   StyledButton,
   StyledContainer,
-  StyledForgot,
   StyledInput,
   StyledLabel,
 } from "./styledLogin";
-import { Link } from "react-router-dom";
+
+const clientID =
+  "286335714917-qkb9o2eag4c1fl3g5pjll7p9tdjvdu8f.apps.googleusercontent.com";
 
 function Login() {
+  const [formValue, setFormValue] = useState({ username: "", password: "" });
+  const [errorForm, setErrorForm] = useState("");
+  const { setToken } = useToken();
+  const history = useHistory();
+
+  const responseGoogle = async (response) => {
+    console.log("response from gg:", response);
+    // let googleResponse = await LoginGoogle(response.accessToken);
+    // console.log(googleResponse);
+  };
+
+  const changeValueForm = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormValue({ ...formValue, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // login via api
+    LoginAPI(formValue)
+      .then((res) => {
+        setErrorForm("");
+        setToken(res);
+        history.replace("/");
+      })
+      .catch((res) => {
+        let error = res.response.data.detail;
+        setErrorForm(error);
+      });
+  };
+
   return (
     <StyledContainer>
       <h2>Login</h2>
       <br />
       <>
-        <FormGroup>
-          <StyledLabel>Email</StyledLabel>
-          <StyledInput placeholder="Type your email" type="email" />
-        </FormGroup>
+        <Form onSubmit={handleSubmit}>
+          {errorForm && <p className="text-danger">{errorForm}</p>}
+          <FormGroup>
+            <StyledLabel>Username</StyledLabel>
+            <StyledInput
+              name="username"
+              value={formValue["username"]}
+              placeholder="Type your email"
+              type="text"
+              onChange={changeValueForm}
+            />
+          </FormGroup>
 
-        <FormGroup>
-          <StyledLabel>Password</StyledLabel>
-          <StyledInput placeholder="Type your password" type="password" />
-        </FormGroup>
+          <FormGroup>
+            <StyledLabel>Password</StyledLabel>
+            <StyledInput
+              name="password"
+              value={formValue["password"]}
+              placeholder="Type your password"
+              type="password"
+              onChange={changeValueForm}
+            />
+          </FormGroup>
 
-        <StyledForgot href="#">Forgot your password?</StyledForgot>
+          <StyledButton type="submit">Login</StyledButton>
+        </Form>
 
-        <StyledButton>Login</StyledButton>
         <div>
-          <hr />
-          <p>Or</p>
           <div>
-            <a href="#">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="#" color="red">
-              <i class="fab fa-google"></i>
-            </a>
+            <GoogleLogin
+              clientId={clientID}
+              buttonText="LOGIN WITH GOOGLE"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+            />
           </div>
           <hr />
         </div>

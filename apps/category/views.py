@@ -1,6 +1,6 @@
 from django.http import Http404
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,7 +9,7 @@ from apps.category.serializers import CategorySerializer
 
 
 class CategoryView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         categories = Category.objects.filter()
@@ -24,7 +24,7 @@ class CategoryView(APIView):
 
 
 class CategoryDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_object(self, id):
         try:

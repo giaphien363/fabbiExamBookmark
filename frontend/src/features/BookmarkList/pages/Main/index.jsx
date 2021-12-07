@@ -1,16 +1,15 @@
-import { useEffect, useState, useRef } from "react";
-import { Button, Col, Container, Form, Input, Row } from "reactstrap";
+import { useEffect, useRef, useState } from "react";
+import { Button, Col, Form, Input, Row } from "reactstrap";
+import { SearchBookmark } from "../../../../API/BookmarkAPI";
 import {
   DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory,
+  UpdateCategory
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
-import { StyledMain, StyledSearchTitle, StyledSearchCount } from "./styledMain";
-
-import { SearchBookmark } from "../../../../API/BookmarkAPI";
+import { StyledMain, StyledSearchCount, StyledSearchTitle } from "./styledMain";
 
 const Main = () => {
   const [inputGroup, setInputGroup] = useState("");
@@ -150,7 +149,7 @@ const Main = () => {
               onChange={changeInputSearch}
             />
             <i
-              class="far fa-search"
+              className="far fa-search"
               style={{ marginLeft: "-9%", padding: "0.6rem" }}
             ></i>
           </div>
@@ -159,13 +158,14 @@ const Main = () => {
         {searchBookmark.length > 0 && (
           <>
             <StyledSearchTitle>Search Results</StyledSearchTitle>
-            <StyledSearchCount>There are {searchBookmark.length} results</StyledSearchCount>
+            <StyledSearchCount>
+              There are {searchBookmark.length} results
+            </StyledSearchCount>
             {searchBookmark.map((item, i) => (
               <ListSearch key={i} item={item} />
             ))}
           </>
         )}
-        
 
         {/* if not search */}
         {inputSearch.length > 0 || (
