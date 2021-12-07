@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Col} from "reactstrap";
 import Bookmark from "../Bookmark";
-import { StyledLink, StyledButton, StyledButtons, StyledSearch } from "./styledSearch";
+import { StyledSearch } from "./styledSearch";
 
 
 const ListSearch = ({item}) => {

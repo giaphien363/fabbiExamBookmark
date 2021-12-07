@@ -1,12 +1,8 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
-  StyledHeader,
-  StyledColRight,
-  StyledColLeft,
-  StyledLink,
+  StyledColLeft, StyledColRight, StyledHeader, StyledLink
 } from "./StyledHeader";
-import { useLocation, Link } from "react-router-dom";
-import { Col, Container, Navbar, Row } from "reactstrap";
 
 const Header = () => {
   const location = useLocation()["pathname"];

@@ -6,6 +6,8 @@ import Auth from "./features/Auth";
 import Login from "./features/Auth/components/Login";
 import Signup from "./features/Auth/components/Signup";
 import BookmarkLet from "./features/BookmarkLet";
+import Login from "./features/Auth/components/Login/index";
+import Signup from "./features/Auth/components/Signup/index";
 
 const Bookmark = React.lazy(() => import("./features/BookmarkList"));
 
@@ -13,6 +15,7 @@ function App() {
   return (
     <>
       <Suspense fallback={<div> Loading... </div>}>
+        {" "}
         <BrowserRouter>
           <Header />
           <Switch>
@@ -21,6 +24,8 @@ function App() {
             <Route exact path="/register" component={Signup} />
             <Route path="/bookmark" component={Bookmark} />{" "}
             <Route path="/bookmarklet" component={BookmarkLet} />{" "}
+            <Route exact path="/login" component={Login} />{" "}
+            <Route exact path="/register" component={Signup} />{" "}
             <Route component={NotFound} />{" "}
           </Switch>{" "}
         </BrowserRouter>{" "}

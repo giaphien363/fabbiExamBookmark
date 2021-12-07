@@ -5,6 +5,7 @@ venv
 
 
 # FE
+./frontend/.env
 ./frontend/node_modules
 
 ./frontend/.pnp

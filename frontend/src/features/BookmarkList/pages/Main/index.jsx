@@ -1,16 +1,18 @@
-import { useEffect, useState, useRef } from "react";
-import { Button, Col, Container, Form, Input, Row } from "reactstrap";
+import { useEffect, useRef, useState } from "react";
+import { Button, Col, Form, Input, Row } from "reactstrap";
+import { SearchBookmark } from "../../../../API/BookmarkAPI";
 import {
   DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory,
+  UpdateCategory
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
 import { StyledMain, StyledSearchTitle, StyledSearchCount } from "./styledMain";
 
 import { SearchBookmark } from "../../../../API/BookmarkAPI";
+import { StyledMain, StyledSearchCount, StyledSearchTitle } from "./styledMain";
 
 const Main = () => {
   const [inputGroup, setInputGroup] = useState("");
@@ -118,7 +120,10 @@ const Main = () => {
     setSearchBookmark([]);
     // call api here
     setInputSearch(e.target.value);
-    if (e.target.value == "") return;
+    if (e.target.value === "") {
+      setSearchBookmark([]);
+      return;
+    }
 
     // clear before setTimeOut
     if (typeTimeOut.current) {
@@ -136,7 +141,7 @@ const Main = () => {
     <>
       <StyledMain>
         <Row className="my-4">
-          <Col >
+          <Col md={6}>
             <h1>Bookmark Management</h1>
           </Col>
 
@@ -147,8 +152,8 @@ const Main = () => {
               onChange={changeInputSearch}
             />
             <i
-              class="far fa-search"
-              style={{ marginLeft: "-10%", padding: "0.6rem" }}
+              className="far fa-search"
+              style={{ marginLeft: "-9%", padding: "0.6rem" }}
             ></i>
           </div>
         </Row>

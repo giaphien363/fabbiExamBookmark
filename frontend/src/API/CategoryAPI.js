@@ -56,7 +56,7 @@ function InsertCategory(data) {
 }
 
 function UpdateCategory(id, data) {
-    /**
+  /**
    * param : data
    * example: {categoryName:""}
    *
