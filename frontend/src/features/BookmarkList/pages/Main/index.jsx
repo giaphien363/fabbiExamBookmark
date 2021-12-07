@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Button, Col, Form, Input, Row } from "reactstrap";
+import { Button, Col, Container, Form, Input, Row } from "reactstrap";
 import {
   DelCategory,
   GetAllCategory,
@@ -8,7 +8,7 @@ import {
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
-import { StyledMain } from "./styledMain";
+import { StyledMain, StyledSearchTitle, StyledSearchCount } from "./styledMain";
 
 import { SearchBookmark } from "../../../../API/BookmarkAPI";
 
@@ -115,12 +115,10 @@ const Main = () => {
   };
 
   const changeInputSearch = (e) => {
+    setSearchBookmark([]);
     // call api here
     setInputSearch(e.target.value);
-    if (e.target.value == "") {
-      setSearchBookmark([]);
-      return;
-    }
+    if (e.target.value == "") return;
 
     // clear before setTimeOut
     if (typeTimeOut.current) {
@@ -138,25 +136,33 @@ const Main = () => {
     <>
       <StyledMain>
         <Row className="my-4">
-          <Col md="6">
-            <h2>Bookmarks</h2>
+          <Col md={6}>
+            <h1>Bookmark Management</h1>
           </Col>
-          <Col md="6">
+
+          <div style={{ display: "flex", width: "50%", float: "right" }}>
             <Input
               placeholder="Search by title"
               value={inputSearch}
               onChange={changeInputSearch}
             />
-          </Col>
+            <i
+              class="far fa-search"
+              style={{ marginLeft: "-9%", padding: "0.6rem" }}
+            ></i>
+          </div>
         </Row>
         {/* if searching */}
         {searchBookmark.length > 0 && (
-          <div>
+          <>
+            <StyledSearchTitle>Search Results</StyledSearchTitle>
+            <StyledSearchCount>There are {searchBookmark.length} results</StyledSearchCount>
             {searchBookmark.map((item, i) => (
               <ListSearch key={i} item={item} />
             ))}
-          </div>
+          </>
         )}
+        
 
         {/* if not search */}
         {inputSearch.length > 0 || (
@@ -166,7 +172,6 @@ const Main = () => {
                 onSubmit={handleSubmit}
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
                   float: "right",
                   width: "49%",
                 }}
@@ -178,11 +183,18 @@ const Main = () => {
                   onChange={(e) => {
                     setInputGroup(e.target.value);
                   }}
-                  style={{ width: "75%" }}
-                  placeholder="New group"
+                  placeholder="New category"
                 />
-                <Button type="submit" color="primary">
-                  Create Group
+                <Button
+                  type="submit"
+                  color=""
+                  style={{
+                    backgroundColor: "steelblue",
+                    marginBottom: "1rem",
+                    color: "snow",
+                  }}
+                >
+                  Add
                 </Button>
               </Form>
             </Col>

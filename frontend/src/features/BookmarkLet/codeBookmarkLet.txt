@@ -2,15 +2,15 @@ javascript: (function () {
   var title = document.title;
   var bodyTag = document.getElementsByTagName("body")[0];
   var url = window.location.href;
-
+  
   const renderHtml = (title) => {
-    var dialogHtml = `<dialog>
-    <input id="titleBookmark" type="text" value="${title}">
+    var dialogHtml = `<dialog style="border: 1.5px solid">
+    <input id="titleBookmark" type="text" value="${title}" style="margin:5px; padding:5px; border-radius:0.3rem; border: 1.5px solid; width:18rem; line-height:2rem">
     <br>    <br>
-    <select id="categoryBookmark" name="category"></select>
+    <select id="categoryBookmark" name="category" style="margin:0px 5px; padding:5px; border-radius:0.3rem; border: 1.5px solid; width:15rem; line-height:2.3rem"></select>
     <br>    <br>
-    <button type="button" id="submitBookmark">Submit</button>
-    <button type="button" id="cancelBookmark">Cancel</button>
+    <button type="button" id="submitBookmark" style="background-color:seagreen; color:white; padding: 5px; margin:5px;">Submit</button>
+    <button type="button" id="cancelBookmark" style="backgrounf-color:silver; border:1px solid; padding: 5px">Cancel</button>
     </dialog>`;
     bodyTag.innerHTML += dialogHtml;
   };

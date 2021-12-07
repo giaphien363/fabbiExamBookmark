@@ -21,7 +21,7 @@ export const StyledBookmark = styled.div`
   padding-left: 2rem;
 
   &:hover {
-    background-color: mintcream;
+    background-color: azure;
   }
 
   &:hover .button1 {

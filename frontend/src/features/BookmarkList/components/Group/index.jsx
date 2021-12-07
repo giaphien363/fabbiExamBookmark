@@ -5,7 +5,7 @@ import {
   DelBookmark,
   GetAllBookmark,
   InsertBookmark,
-  UpdateBookmark,
+  UpdateBookmark
 } from "../../../../API/BookmarkAPI";
 import AddEdit from "../../components/AddEdit";
 import Bookmark from "../Bookmark";
@@ -16,7 +16,7 @@ import {
   StyledCardHeader,
   StyledCardTitle,
   StyledCardTitleInput,
-  StyledDropdownButton,
+  StyledDropdownButton
 } from "./styledGroup";
 
 const Group = ({
@@ -124,7 +124,7 @@ const Group = ({
               </StyledCardTitle>
             )}
             {editMode && (
-              <form onSubmit={handleUpdateCate} style={{ width: "100%" }}>
+              <form onSubmit={handleUpdateCate} style={{ width: "100%"}}>
                 <StyledCardTitleInput
                   value={categoryName}
                   autoFocus
@@ -134,7 +134,7 @@ const Group = ({
             )}
             {editMode || (
               <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
-                <DropdownToggle>
+                <DropdownToggle color="" style={{  margin: "0.3rem"}}>
                   <i className="fal fa-ellipsis-v-alt"></i>
                 </DropdownToggle>
                 <DropdownMenu>
