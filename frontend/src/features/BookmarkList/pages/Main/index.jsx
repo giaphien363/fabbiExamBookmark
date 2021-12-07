@@ -136,7 +136,7 @@ const Main = () => {
     <>
       <StyledMain>
         <Row className="my-4">
-          <Col md={6}>
+          <Col >
             <h1>Bookmark Management</h1>
           </Col>
 
@@ -148,17 +148,18 @@ const Main = () => {
             />
             <i
               class="far fa-search"
-              style={{ marginLeft: "-9%", padding: "0.6rem" }}
+              style={{ marginLeft: "-10%", padding: "0.6rem" }}
             ></i>
           </div>
         </Row>
+
         {/* if searching */}
         {searchBookmark.length > 0 && (
           <>
             <StyledSearchTitle>Search Results</StyledSearchTitle>
             <StyledSearchCount>There are {searchBookmark.length} results</StyledSearchCount>
             {searchBookmark.map((item, i) => (
-              <ListSearch key={i} item={item} />
+              <ListSearch key={i} item={item}/>
             ))}
           </>
         )}
@@ -198,6 +199,7 @@ const Main = () => {
                 </Button>
               </Form>
             </Col>
+
             <Col md="12">
               <Row>
                 {/* map groups */}

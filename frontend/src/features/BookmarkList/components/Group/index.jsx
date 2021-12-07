@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import AddEdit from "../../components/AddEdit";
 import { Col, Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 import {
   DelBookmark,
   GetAllBookmark,
   InsertBookmark,
-  UpdateBookmark
+  UpdateBookmark,
 } from "../../../../API/BookmarkAPI";
-import AddEdit from "../../components/AddEdit";
 import Bookmark from "../Bookmark";
+import CustomModal from "../Modal";
 import {
   StyledCard,
   StyledCardBody,
@@ -16,7 +16,7 @@ import {
   StyledCardHeader,
   StyledCardTitle,
   StyledCardTitleInput,
-  StyledDropdownButton
+  StyledDropdownButton,
 } from "./styledGroup";
 
 const Group = ({
@@ -124,7 +124,7 @@ const Group = ({
               </StyledCardTitle>
             )}
             {editMode && (
-              <form onSubmit={handleUpdateCate} style={{ width: "100%"}}>
+              <form onSubmit={handleUpdateCate} style={{ width: "100%" }}>
                 <StyledCardTitleInput
                   value={categoryName}
                   autoFocus
@@ -134,7 +134,7 @@ const Group = ({
             )}
             {editMode || (
               <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
-                <DropdownToggle color="" style={{  margin: "0.3rem"}}>
+                <DropdownToggle color="" style={{ margin: "0.3rem" }}>
                   <i className="fal fa-ellipsis-v-alt"></i>
                 </DropdownToggle>
                 <DropdownMenu>
@@ -187,7 +187,16 @@ const Group = ({
       </Col>
 
       {/* modal */}
-      <Modal
+
+      <CustomModal
+        showModal={showModal}
+        toggleShow={toggleShow}
+        groupId={id}
+        bookId={bookId}
+        listCategory={categoriesSelect}
+        crudBookmark={crudBookmark}
+      />
+      {/* <Modal
         show={showModal}
         backdrop="static"
         keyboard={false}
@@ -202,7 +211,7 @@ const Group = ({
             toggleShow={toggleShow}
           />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

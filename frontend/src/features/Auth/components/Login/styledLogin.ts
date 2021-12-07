@@ -4,7 +4,6 @@ import {Container, Label, Input} from 'reactstrap'
 export const StyledContainer = styled(Container)`
     overflow: hidden;
     width: 35rem;
-    padding: 2rem ;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,57 +1,36 @@
 import React from "react";
-import { StyledHeader, StyledHeaderTitle } from "./StyledHeader";
+import {
+  StyledHeader,
+  StyledColRight,
+  StyledColLeft,
+  StyledLink,
+} from "./StyledHeader";
 import { useLocation, Link } from "react-router-dom";
-import { Navbar } from "reactstrap";
+import { Col, Container, Navbar, Row } from "reactstrap";
 
 const Header = () => {
   const location = useLocation()["pathname"];
   return (
-    <>
-      <Navbar color="info" dark expand="md" fixed="top" light>
-        {" "}
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li
-              className={
-                location == "/bookmark" ? "nav-item active" : "nav-item"
-              }
-            >
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
+    <StyledHeader>
+      <StyledColLeft xs="6">
+        <Link to="/">
+          <StyledLink>Home</StyledLink>
+        </Link>
+        <Link to="/bookmarklet">
+          <StyledLink>BookmarkLet</StyledLink>
+        </Link>
+      </StyledColLeft>
 
-            <li
-              className={
-                location == "/bookmarklet" ? "nav-item active" : "nav-item"
-              }
-            >
-              <Link className="nav-link" to="/bookmarklet">
-                BookmarkLet
-              </Link>
-            </li>
-
-            <div style={{display:"flex", }}>
-            <li
-              className={location == "/login" ? "nav-item active" : "nav-item"}
-            >
-              <Link className="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
-            
-            <li
-              className={location == "/#" ? "nav-item active" : "nav-item"}
-            >
-              <Link className="nav-link" to="/#">
-                Logout
-              </Link>
-            </li>
-            </div>
-          </ul>
-        </div>
-      </Navbar>
-    </>
+      <StyledColRight xs="6">
+        <StyledLink>Username</StyledLink>
+        <Link to="/login">
+          <StyledLink>Login</StyledLink>
+        </Link>
+        <Link to="/#">
+          <StyledLink>Logout</StyledLink>
+        </Link>
+      </StyledColRight>
+    </StyledHeader>
   );
 };
 Header.propTypes = {};
