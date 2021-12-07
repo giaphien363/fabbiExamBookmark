@@ -1,20 +1,21 @@
-from django.shortcuts import render
-from django.http import request
-from django.http.response import Http404, HttpResponse
-from apps.category.models import Category
+from django.http.response import Http404
+from django.http.response import Http404
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from apps.bookmark.models import BookMark
 from apps.bookmark.serializer import BookmarkSerializer
-from rest_framework.views import APIView
-from django.core.exceptions import ObjectDoesNotExist
+from apps.category.models import Category
+
 
 # Create your views here.
 
 def getCategoryId(id):
     cate_id = int(id)
 
-    if cate_id is not None :
+    if cate_id is not None:
         try:
             value = Category.objects.get(id=cate_id)
             if value:
@@ -23,7 +24,9 @@ def getCategoryId(id):
             return 1
 
 
-class BookmarkAPIView(APIView) :
+class BookmarkAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         bookmark = BookMark.objects.all()
         cateId = self.request.query_params.get('category')
@@ -40,19 +43,21 @@ class BookmarkAPIView(APIView) :
 
     def post(self, request, format=None):
         serializer = BookmarkSerializer(data=request.data)
-        
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-   
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-   
+
 class DetailEvent(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return BookMark.objects.get(id=pk)
-        except BookMark.DoesNotExist:  
+        except BookMark.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):

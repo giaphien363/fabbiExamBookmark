@@ -117,7 +117,7 @@ const Main = () => {
   const changeInputSearch = (e) => {
     // call api here
     setInputSearch(e.target.value);
-    if (e.target.value == "") {
+    if (e.target.value === "") {
       setSearchBookmark([]);
       return;
     }
