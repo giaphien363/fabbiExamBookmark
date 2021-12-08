@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import GoogleLogin from "react-google-login";
 import { Link, useHistory } from "react-router-dom";
 import { Form, FormGroup } from "reactstrap";
-import { LoginAPI, LoginGoogle } from "../../../../API/AuthAPI";
+import { LoginAPI } from "../../../../API/AuthAPI";
 import { useToken } from "../../../../CustomHook/useToken";
-
 import {
   StyledButton,
   StyledContainer,
   StyledInput,
-  StyledLabel,
+  StyledLabel
 } from "./styledLogin";
 
 const clientID =
@@ -34,6 +33,7 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // login via api
     LoginAPI(formValue)
       .then((res) => {
@@ -59,7 +59,7 @@ function Login() {
             <StyledInput
               name="username"
               value={formValue["username"]}
-              placeholder="Type your email"
+              placeholder="Type your username"
               type="text"
               onChange={changeValueForm}
             />
@@ -78,6 +78,11 @@ function Login() {
 
           <StyledButton type="submit">Login</StyledButton>
         </Form>
+
+        <div>
+          <hr />
+          <p>Or</p>
+        </div>
 
         <div>
           <div>

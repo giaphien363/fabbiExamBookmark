@@ -8,6 +8,7 @@ export const StyledContainer = styled(Container)`
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    margin-top: 5rem;
 `
 
 export const StyledLabel = styled(Label)`
@@ -33,5 +34,6 @@ export const StyledButton = styled.button`
     border-radius: 1rem;
     margin: 2rem 0rem;
     height: 2rem;
+    width: 100%;
 
 `

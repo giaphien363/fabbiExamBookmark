@@ -9,10 +9,8 @@ import {
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
-import { StyledMain, StyledSearchTitle, StyledSearchCount } from "./styledMain";
-
-import { SearchBookmark } from "../../../../API/BookmarkAPI";
 import { StyledMain, StyledSearchCount, StyledSearchTitle } from "./styledMain";
+
 
 const Main = () => {
   const [inputGroup, setInputGroup] = useState("");

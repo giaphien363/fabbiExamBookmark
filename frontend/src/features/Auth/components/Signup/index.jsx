@@ -1,67 +1,97 @@
-import React from "react";
-import {
-    FormGroup
-} from "reactstrap";
-import {
-    StyledButton, StyledContainer, StyledForgot, StyledInput, StyledLabel
-} from "./styledSignup";
-import {Link} from 'react-router-dom';
-import { FormGroup } from "reactstrap";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Form, FormGroup } from "reactstrap";
+import { Register } from "../../../../API/AuthAPI";
+import { useToken } from "../../../../CustomHook/useToken";
 import {
   StyledButton,
   StyledContainer,
-  StyledForgot,
   StyledInput,
   StyledLabel,
 } from "./styledSignup";
-import { Link } from "react-router-dom";
 
 function Signup() {
+  const [formValue, setFormValue] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [errorForm, setErrorForm] = useState("");
+  const { setToken } = useToken();
+  const history = useHistory();
+ 
+  const changeValueForm = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormValue({ ...formValue, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Signup via api
+    Register(formValue)
+      .then((res) => {
+        setErrorForm("");
+        setToken(res);
+        history.replace("/");
+      })
+      .catch((res) => {
+        let error = res.response.data.detail;
+        setErrorForm(error);
+      });
+  };
+
   return (
     <StyledContainer>
       <h2>SIGN UP</h2>
       <br />
-      <>
+
+      <Form onSubmit={handleSubmit}>
+      {errorForm && <p className="text-danger">{errorForm}</p>}
         <FormGroup>
           <StyledLabel>Username</StyledLabel>
-          <StyledInput placeholder="Your username" type="text" />
+          <StyledInput
+            name="username"
+            value={formValue["username"]}
+            placeholder="Your username"
+            type="text"
+            onChange={changeValueForm}
+          />
         </FormGroup>
-        
+
         <FormGroup>
           <StyledLabel>Email</StyledLabel>
-          <StyledInput placeholder="Type your email" type="email" />
+          <StyledInput
+            name="email"
+            value={formValue["email"]}
+            placeholder="Type your email"
+            type="email"
+            onChange={changeValueForm}
+          />
         </FormGroup>
 
         <FormGroup>
           <StyledLabel>Password</StyledLabel>
-          <StyledInput placeholder="Type your password" type="password" />
+          <StyledInput
+            name="password"
+            value={formValue["password"]}
+            placeholder="Type your password"
+            type="password"
+            onChange={changeValueForm}
+          />
         </FormGroup>
-        
 
         <StyledButton>Join for free</StyledButton>
+      </Form>
 
-        <div>
-          <hr />
-          <p>Or</p>
-          <div>
-            <a href="#">
-              <i className="fab fa-facebook"></i>
-            </a>
-            <a href="#" color="red">
-              <i className="fab fa-google"></i>
-            </a>
-          </div>
-          <hr />
-        </div>
-
-        <div>
-          <span>Already have an account? </span>
-          <Link to="/login">Login</Link>
-        </div>
-      </>
+      <div>
+        <span>Already have an account? </span>
+        <Link to="/login">Login</Link>
+      </div>
     </StyledContainer>
   );
 }
 
 export default Signup;
-

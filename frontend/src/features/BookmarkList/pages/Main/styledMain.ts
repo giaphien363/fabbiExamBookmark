@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 
 export const StyledMain = styled(Container)`
   font-family: Roboto, sans-serif;
+  margin-top: 5rem;
 `
 
 export const StyledSearchTitle = styled.h2`
