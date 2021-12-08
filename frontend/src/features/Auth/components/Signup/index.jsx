@@ -1,20 +1,12 @@
 import React from "react";
-import {
-    FormGroup
-} from "reactstrap";
-import {
-    StyledButton, StyledContainer, StyledForgot, StyledInput, StyledLabel
-} from "./styledSignup";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { FormGroup } from "reactstrap";
 import {
   StyledButton,
   StyledContainer,
-  StyledForgot,
   StyledInput,
   StyledLabel,
 } from "./styledSignup";
-import { Link } from "react-router-dom";
 
 function Signup() {
   return (
@@ -26,7 +18,7 @@ function Signup() {
           <StyledLabel>Username</StyledLabel>
           <StyledInput placeholder="Your username" type="text" />
         </FormGroup>
-        
+
         <FormGroup>
           <StyledLabel>Email</StyledLabel>
           <StyledInput placeholder="Type your email" type="email" />
@@ -36,7 +28,6 @@ function Signup() {
           <StyledLabel>Password</StyledLabel>
           <StyledInput placeholder="Type your password" type="password" />
         </FormGroup>
-        
 
         <StyledButton>Join for free</StyledButton>
 
@@ -64,4 +55,3 @@ function Signup() {
 }
 
 export default Signup;
-

@@ -33,5 +33,5 @@ export const StyledButton = styled.button`
     border-radius: 1rem;
     margin: 2rem 0rem;
     height: 2rem;
-
+    width: 100%;
 `

@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Modal } from "react-bootstrap";
-import AddEdit from "./AddEdit";
+import AddEdit from "../AddEdit";
 
 const CustomModal = (prop) => {
   const { showModal, toggleShow, groupId, bookId, listCategory, crudBookmark } =

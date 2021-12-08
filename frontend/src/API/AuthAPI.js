@@ -27,7 +27,7 @@ function Register(data) {
    * example: {username:"admin", password:"admin",email:"admin@admin.com"}
    *
    */
-  let url = (baseURL = "create/user/");
+  let url = baseURL + "create/user/";
   return new Promise((resolve, reject) => {
     axios
       .post(url, data)

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import AddEdit from "../../components/AddEdit";
 import { Col, Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 import {
   DelBookmark,
   GetAllBookmark,
   InsertBookmark,
-  UpdateBookmark
+  UpdateBookmark,
 } from "../../../../API/BookmarkAPI";
 import Bookmark from "../Bookmark";
-import CustomModal from "../Modal";
+import CustomModal from "../MyModal/Modal";
 import {
   StyledCard,
   StyledCardBody,
@@ -16,7 +15,7 @@ import {
   StyledCardHeader,
   StyledCardTitle,
   StyledCardTitleInput,
-  StyledDropdownButton
+  StyledDropdownButton,
 } from "./styledGroup";
 
 const Group = ({
@@ -42,9 +41,15 @@ const Group = ({
   const toggleShow = () => setShowModal((prev) => !prev);
 
   useEffect(() => {
-    GetAllBookmark(id).then((res) => {
-      setBookmark(res);
-    });
+    let isApiSubscribed = true;
+    if (isApiSubscribed) {
+      GetAllBookmark(id).then((res) => {
+        setBookmark(res);
+      });
+    }
+    return () => {
+      isApiSubscribed = false;
+    };
   }, [tempBookmark]);
 
   const crudBookmark = (type = null, id = -1, value = null) => {
@@ -83,7 +88,6 @@ const Group = ({
         if (id < 0) return;
         if (window.confirm("Are you sure?")) {
           DelBookmark(id).then((res) => {
-            alert("Delete successfully!");
             var temp = [...bookmark];
             var listCate = temp.filter((ele) => {
               return ele.id !== id;
@@ -124,7 +128,7 @@ const Group = ({
               </StyledCardTitle>
             )}
             {editMode && (
-              <form onSubmit={handleUpdateCate} style={{ width: "100%"}}>
+              <form onSubmit={handleUpdateCate} style={{ width: "100%" }}>
                 <StyledCardTitleInput
                   value={categoryName}
                   autoFocus
@@ -134,7 +138,7 @@ const Group = ({
             )}
             {editMode || (
               <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
-                <DropdownToggle color="" style={{  margin: "0.3rem"}}>
+                <DropdownToggle color="" style={{ margin: "0.3rem" }}>
                   <i className="fal fa-ellipsis-v-alt"></i>
                 </DropdownToggle>
                 <DropdownMenu>
@@ -196,22 +200,6 @@ const Group = ({
         listCategory={categoriesSelect}
         crudBookmark={crudBookmark}
       />
-      {/* <Modal
-        show={showModal}
-        backdrop="static"
-        keyboard={false}
-        onHide={toggleShow}
-      >
-        <Modal.Body>
-          <AddEdit
-            groupId={id}
-            bookId={bookId}
-            categoriesSelect={categoriesSelect}
-            crudBookmark={crudBookmark}
-            toggleShow={toggleShow}
-          />
-        </Modal.Body>
-      </Modal> */}
     </>
   );
 };
