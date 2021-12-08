@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { default as React, default as React, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Form, FormGroup } from "reactstrap";
 import { Register } from "../../../../API/AuthAPI";
@@ -7,7 +7,7 @@ import {
   StyledButton,
   StyledContainer,
   StyledInput,
-  StyledLabel,
+  StyledLabel
 } from "./styledSignup";
 
 function Signup() {

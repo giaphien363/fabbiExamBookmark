@@ -1,6 +1,5 @@
-import { Col, Row} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import styled from "styled-components";
-
 
 export const StyledHeader = styled(Row)`
   background-color: steelblue;
@@ -17,12 +16,25 @@ export const StyledColLeft = styled(Col)`
 export const StyledColRight = styled(Col)`
   display: inline-flex;
   justify-content: flex-end;
-`
+`;
 
 
-export const StyledLink = styled.p`
-  text-decoration: none;
+// export const StyledLink = styled.p`
+//   text-decoration: none`;
+
+
+
+export const StyledLink = styled.span`
+  margin: 10px 20px;
   color: white;
-  cursor: pointer;
-  margin : 10px 20px;
-`
+  & > a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+  }
+  & > button {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+  }
+`;

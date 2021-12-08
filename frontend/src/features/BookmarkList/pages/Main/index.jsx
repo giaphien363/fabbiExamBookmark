@@ -5,7 +5,7 @@ import {
   DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory
+  UpdateCategory,
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
@@ -16,33 +16,38 @@ const Main = () => {
   const [inputGroup, setInputGroup] = useState("");
   const [inputSearch, setInputSearch] = useState("");
   const [tempBookmark, setTempBookmark] = useState(null);
+  const [searchMode, setSearchMode] = useState(false);
 
   const [categories, setCategories] = useState([]);
-  const [searchBookmark, setSearchBookmark] = useState([]);
+  // const [searchBookmark, setSearchBookmark] = useState([]);
   const [categoriesSelect, setCategoriesSelect] = useState([]);
-
-  const typeTimeOut = useRef(null);
 
   useEffect(() => {
     document.title = "List Bookmark";
   }, []);
 
   useEffect(() => {
-    GetAllCategory().then((res) => {
-      const newCate = [];
+    let isApiSubscribed = true;
+    if (isApiSubscribed) {
+      GetAllCategory().then((res) => {
+        const newCate = [];
 
-      res.map((item) => {
-        let subItem = {
-          value: item.id,
-          label: item.categoryName,
-        };
-        newCate.push(subItem);
-        return item;
+        res.map((item) => {
+          let subItem = {
+            value: item.id,
+            label: item.categoryName,
+          };
+          newCate.push(subItem);
+          return item;
+        });
+
+        setCategoriesSelect(newCate);
+        setCategories(res);
       });
-
-      setCategoriesSelect(newCate);
-      setCategories(res);
-    });
+    }
+    return () => {
+      isApiSubscribed = false;
+    };
   }, []);
 
   const checkCateNameValid = (cateName) => {
@@ -115,24 +120,12 @@ const Main = () => {
   };
 
   const changeInputSearch = (e) => {
-    setSearchBookmark([]);
-    // call api here
     setInputSearch(e.target.value);
     if (e.target.value === "") {
-      setSearchBookmark([]);
-      return;
+      setSearchMode(false);
+    } else {
+      setSearchMode(true);
     }
-
-    // clear before setTimeOut
-    if (typeTimeOut.current) {
-      clearTimeout(typeTimeOut.current);
-    }
-
-    typeTimeOut.current = setTimeout(() => {
-      SearchBookmark(e.target.value).then((res) => {
-        setSearchBookmark(res);
-      });
-    }, 500);
   };
 
   return (
@@ -157,19 +150,10 @@ const Main = () => {
         </Row>
 
         {/* if searching */}
-        {searchBookmark.length > 0 && (
-          <>
-            <StyledSearchTitle>Search Results</StyledSearchTitle>
-            <StyledSearchCount>There are {searchBookmark.length} results</StyledSearchCount>
-            {searchBookmark.map((item, i) => (
-              <ListSearch key={i} item={item}/>
-            ))}
-          </>
-        )}
-        
+        {searchMode && <ListSearch inputSearch={inputSearch} />}
 
         {/* if not search */}
-        {inputSearch.length > 0 || (
+        {searchMode || (
           <Row>
             <Col md="12">
               <Form

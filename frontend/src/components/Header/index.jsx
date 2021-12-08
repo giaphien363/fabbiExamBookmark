@@ -1,30 +1,44 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useToken } from "../../CustomHook/useToken";
 import {
-  StyledColLeft, StyledColRight, StyledHeader, StyledLink
+  StyledColLeft,
+  StyledColRight,
+  StyledHeader,
+  StyledLink,
 } from "./StyledHeader";
 
 const Header = () => {
-  const location = useLocation()["pathname"];
+  const { user, removeToken } = useToken();
+
+  const logout = () => {
+    removeToken();
+  };
+
   return (
     <StyledHeader>
       <StyledColLeft xs="6">
-        <Link to="/">
-          <StyledLink>Home</StyledLink>
-        </Link>
-        <Link to="/bookmarklet">
-          <StyledLink>BookmarkLet</StyledLink>
-        </Link>
+        <StyledLink>
+          <Link to="/">Home</Link>
+        </StyledLink>
+        <StyledLink>
+          <Link to="/bookmarklet">BookmarkLet</Link>
+        </StyledLink>
       </StyledColLeft>
 
       <StyledColRight xs="6">
-        <StyledLink>Username</StyledLink>
-        <Link to="/login">
-          <StyledLink>Login</StyledLink>
-        </Link>
-        <Link to="/#">
-          <StyledLink>Logout</StyledLink>
-        </Link>
+        {user ? (
+          <>
+            <StyledLink>Hello, {user}</StyledLink>
+            <StyledLink>
+              <a onClick={logout}>Logout</a>
+            </StyledLink>
+          </>
+        ) : (
+          <StyledLink>
+            <Link to="/login">Login</Link>
+          </StyledLink>
+        )}
       </StyledColRight>
     </StyledHeader>
   );
