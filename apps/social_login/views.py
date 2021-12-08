@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 from django.contrib.auth.models import User
@@ -17,6 +18,17 @@ class GoogleLogin(SocialLoginView):
     callback_url = "http://localhost:3000"
     client_class = OAuth2Client
 
+class FacebookLogin(SocialLoginView):
+    authentication_classes = []  # disable authentication
+    adapter_class = FacebookOAuth2Adapter
+    callback_url = "http://localhost:3000"
+    client_class = OAuth2Client
+
+class UserView(APIView):
+    # permission_classes = [AllowAny]
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
