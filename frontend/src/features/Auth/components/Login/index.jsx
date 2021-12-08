@@ -1,29 +1,52 @@
 import React, { useState } from "react";
 import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 import { Link, useHistory } from "react-router-dom";
 import { Form, FormGroup } from "reactstrap";
-import { LoginAPI } from "../../../../API/AuthAPI";
+import { LoginAPI, LoginGoogle, LoginFacebook } from "../../../../API/AuthAPI";
 import { useToken } from "../../../../CustomHook/useToken";
 import {
   StyledButton,
   StyledContainer,
   StyledInput,
-  StyledLabel
+  StyledLabel,
 } from "./styledLogin";
 
 const clientID =
   "286335714917-qkb9o2eag4c1fl3g5pjll7p9tdjvdu8f.apps.googleusercontent.com";
+const appId = "429007665335347";
 
 function Login() {
+  console.log("env: ", process.env.CLIENT_ID);
   const [formValue, setFormValue] = useState({ username: "", password: "" });
   const [errorForm, setErrorForm] = useState("");
   const { setToken } = useToken();
   const history = useHistory();
 
   const responseGoogle = async (response) => {
-    console.log("response from gg:", response);
-    // let googleResponse = await LoginGoogle(response.accessToken);
-    // console.log(googleResponse);
+    let googleResponse = await LoginGoogle(response.accessToken);
+    const data = googleResponse.data;
+    console.log("gg: ", data);
+    const token = {
+      access: data["access_token"],
+      refresh: data["refresh_token"],
+      username: data["user"]["last_name"] + " " + data["user"]["first_name"],
+    };
+    setToken(token);
+    history.replace("/");
+  };
+
+  const responseFacebook = async (response) => {
+    let fbResponse = await LoginFacebook(response.accessToken);
+
+    const data = fbResponse.data;
+    const token = {
+      access: data["access_token"],
+      refresh: data["refresh_token"],
+      username: data["user"]["last_name"] + " " + data["user"]["first_name"],
+    };
+    setToken(token);
+    history.replace("/");
   };
 
   const changeValueForm = (e) => {
@@ -37,6 +60,7 @@ function Login() {
     // login via api
     LoginAPI(formValue)
       .then((res) => {
+        console.log(res);
         setErrorForm("");
         setToken(res);
         history.replace("/");
@@ -94,6 +118,12 @@ function Login() {
             />
           </div>
           <hr />
+          <FacebookLogin
+            textButton="LOGIN WITH FACEBOOK"
+            appId={appId}
+            fields="name,email,picture"
+            callback={responseFacebook}
+          />
         </div>
 
         <div>

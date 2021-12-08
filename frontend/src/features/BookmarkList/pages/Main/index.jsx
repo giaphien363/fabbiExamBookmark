@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Input, Row } from "reactstrap";
-import { SearchBookmark } from "../../../../API/BookmarkAPI";
 import {
   DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory,
+  UpdateCategory
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
-import { StyledMain, StyledSearchCount, StyledSearchTitle } from "./styledMain";
+import { StyledMain } from "./styledMain";
 
 
 const Main = () => {

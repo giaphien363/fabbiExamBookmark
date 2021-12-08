@@ -77,6 +77,7 @@ const BookmarkLet = () => {
           <a
             className="btn btn-outline-success mx-3"
             href={`javascript:(function(){${value}})()`}
+            target="_blank" rel="noreferrer"
           >
             Demo bookmark drag
           </a>
