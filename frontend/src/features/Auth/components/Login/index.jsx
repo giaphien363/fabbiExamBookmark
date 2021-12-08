@@ -92,10 +92,10 @@ function Login() {
         </div>
 
         <div>
-          <p>New to Bookmark?</p>
-          <h4>
+          <span>New to Bookmark? </span>
+          <span>
             <Link to="/register">SIGN UP</Link>
-          </h4>
+          </span>
         </div>
       </>
     </StyledContainer>

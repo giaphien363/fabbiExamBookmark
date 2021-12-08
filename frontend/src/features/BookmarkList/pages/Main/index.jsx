@@ -9,6 +9,9 @@ import {
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
+import { StyledMain, StyledSearchTitle, StyledSearchCount } from "./styledMain";
+
+import { SearchBookmark } from "../../../../API/BookmarkAPI";
 import { StyledMain, StyledSearchCount, StyledSearchTitle } from "./styledMain";
 
 const Main = () => {
@@ -154,18 +157,18 @@ const Main = () => {
             ></i>
           </div>
         </Row>
+
         {/* if searching */}
         {searchBookmark.length > 0 && (
           <>
             <StyledSearchTitle>Search Results</StyledSearchTitle>
-            <StyledSearchCount>
-              There are {searchBookmark.length} results
-            </StyledSearchCount>
+            <StyledSearchCount>There are {searchBookmark.length} results</StyledSearchCount>
             {searchBookmark.map((item, i) => (
-              <ListSearch key={i} item={item} />
+              <ListSearch key={i} item={item}/>
             ))}
           </>
         )}
+        
 
         {/* if not search */}
         {inputSearch.length > 0 || (
@@ -201,6 +204,7 @@ const Main = () => {
                 </Button>
               </Form>
             </Col>
+
             <Col md="12">
               <Row>
                 {/* map groups */}

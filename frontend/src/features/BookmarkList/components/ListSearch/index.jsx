@@ -1,20 +1,21 @@
 import React from "react";
-import { StyledButton, StyledButtons, StyledLink, StyledSearch } from "./styledSearch";
+import Bookmark from "../Bookmark";
+import { StyledSearch } from "./styledSearch";
 
 
-const ListSearch = ({ item, crudBookmark, setBookId, toggleShow  }) => {
-  const handleDel = () => {
-    crudBookmark("DELETE", item.id);
-  };
+const ListSearch = ({item}) => {
+  // const handleDel = () => {
+  //   crudBookmark("DELETE", item.id);
+  // };
 
-  const handleUpdate = () => {
-    setBookId(item.id);
-    toggleShow();
-  };
+  // const handleUpdate = () => {
+  //   setBookId(item.id);
+  //   toggleShow();
+  // };
 
   return (
     <StyledSearch>
-      <StyledLink href={item.url} target="_blank" rel="noreferrer">{item.title}</StyledLink>
+      {/* <StyledLink href={item.url} target="_blank" rel="noreferrer">{item.title}</StyledLink>
       <StyledButtons>
       <StyledButton
           color="success"
@@ -35,9 +36,12 @@ const ListSearch = ({ item, crudBookmark, setBookId, toggleShow  }) => {
         </StyledButton>
 
         
-      </StyledButtons>
+      </StyledButtons> */}
+
+      {/* <><StyledLink href={item.url} target="_blank" rel="noreferrer">{item.title}</StyledLink></> */}
+      <Bookmark/>
     </StyledSearch>
   );
 };
-
+ListSearch.protoType ={};
 export default ListSearch;

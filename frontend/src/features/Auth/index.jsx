@@ -1,17 +1,25 @@
-import React from "react";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
-import Main from "./pages/Main/index";
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import NotFound from '../../components/NotFound';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
-const Auth = (props) => {
+import Main from './pages/Main';
+
+Auth.propTypes = {};
+
+function Auth() {
   const match = useRouteMatch();
+
+  console.log(match.url);
 
   return (
     <Switch>
-      <Route path={match.url} component={Main} />
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Signup} />
+     
+      <Route component={NotFound} />
     </Switch>
   );
-};
-
-Auth.propTypes = {};
+}
 
 export default Auth;
