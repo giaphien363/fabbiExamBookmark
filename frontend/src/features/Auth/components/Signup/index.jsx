@@ -1,4 +1,4 @@
-import { default as React, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Form, FormGroup } from "reactstrap";
 import { Register } from "../../../../API/AuthAPI";
@@ -7,7 +7,7 @@ import {
   StyledButton,
   StyledContainer,
   StyledInput,
-  StyledLabel
+  StyledLabel,
 } from "./styledSignup";
 
 function Signup() {
@@ -20,7 +20,7 @@ function Signup() {
   const [errorForm, setErrorForm] = useState("");
   const { setToken } = useToken();
   const history = useHistory();
- 
+
   const changeValueForm = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -50,7 +50,7 @@ function Signup() {
       <br />
 
       <Form onSubmit={handleSubmit}>
-      {errorForm && <p className="text-danger">{errorForm}</p>}
+        {errorForm && <p className="text-danger">{errorForm}</p>}
         <FormGroup>
           <StyledLabel>Username</StyledLabel>
           <StyledInput

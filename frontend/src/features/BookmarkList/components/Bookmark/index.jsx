@@ -41,6 +41,4 @@ const Bookmark = ({ item, crudBookmark, setBookId, toggleShow }) => {
   );
 };
 
-Bookmark.propTypes = {};
-
 export default Bookmark;
