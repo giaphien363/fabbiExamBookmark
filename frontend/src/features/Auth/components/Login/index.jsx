@@ -18,7 +18,7 @@ import {
   StyledWith,
 } from "./styledLogin";
 
-const clientID =process.env.REACT_APP_CLIENT_ID_GG;
+const clientID = process.env.REACT_APP_CLIENT_ID_GG;
 const appId = process.env.REACT_APP_CLIENT_ID_FB;
 
 function Login() {
@@ -136,22 +136,21 @@ function Login() {
               onFailure={responseGoogle}
             />
 
-            {/* <StyledButtonFb> */}
+            <StyledButtonFb>
               <FacebookLogin
-                // textButton={
-                //   <div style={{ display: "flex" }}>
-                //     <StyledIconFb className="fab fa-facebook-f"></StyledIconFb>
-                //     <StyledTextFb>login with facebook</StyledTextFb>
-                //   </div>
-                // }
-                textButton="login fb"
+                textButton={
+                  <div style={{ display: "flex" }}>
+                    <StyledIconFb className="fab fa-facebook-f"></StyledIconFb>
+                    <StyledTextFb>login with facebook</StyledTextFb>
+                  </div>
+                }
                 appId={appId}
                 fields="name,email,picture"
                 callback={responseFacebook}
               />
-            {/* </StyledButtonFb> */}
+            </StyledButtonFb>
           </StyledWith>
-          <br/>
+          <br />
           <hr />
         </div>
         <div>
