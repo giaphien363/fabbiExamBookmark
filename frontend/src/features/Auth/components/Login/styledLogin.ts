@@ -1,5 +1,5 @@
+import { Container, Input, Label } from 'reactstrap'
 import styled from 'styled-components'
-import {Container, Label, Input, Button} from 'reactstrap'
 
 export const StyledLoader = styled.div`
     width : 100%;

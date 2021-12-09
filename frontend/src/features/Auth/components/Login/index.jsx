@@ -18,7 +18,7 @@ import {
   StyledWith,
 } from "./styledLogin";
 
-const clientID =process.env.REACT_APP_CLIENT_ID_GG;
+const clientID = process.env.REACT_APP_CLIENT_ID_GG;
 const appId = process.env.REACT_APP_CLIENT_ID_FB;
 
 function Login() {
@@ -74,7 +74,6 @@ function Login() {
     // login via api
     LoginAPI(formValue)
       .then((res) => {
-        console.log(res);
         setErrorForm("");
         setToken(res);
         history.replace("/bookmarklet");
@@ -151,7 +150,7 @@ function Login() {
               />
             </StyledButtonFb>
           </StyledWith>
-          <br/>
+          <br />
           <hr />
         </div>
         <div>

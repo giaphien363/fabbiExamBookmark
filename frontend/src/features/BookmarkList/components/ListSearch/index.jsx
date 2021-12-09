@@ -1,19 +1,16 @@
+import { useEffect, useRef, useState } from "react";
+import { Roller } from "react-awesome-spinners";
 import { Modal } from "react-bootstrap";
-import { useState, useRef, useEffect } from "react";
-import { Ellipsis, Roller } from "react-awesome-spinners";
 import { Form } from "reactstrap";
 import {
-  StyledLoader,
+  DelBookmark, SearchBookmark, UpdateBookmark
+} from "../../../../API/BookmarkAPI";
+import {
   StyledButton,
   StyledButtons,
   StyledLink,
-  StyledSearch,
+  StyledSearch
 } from "./styledSearch";
-import {
-  DelBookmark,
-  UpdateBookmark,
-  SearchBookmark,
-} from "../../../../API/BookmarkAPI";
 
 const ListSearch = ({ inputSearch }) => {
   const [showModal, setShowModal] = useState(false);

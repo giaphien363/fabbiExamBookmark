@@ -30,7 +30,6 @@ const BookmarkLet = () => {
     setCheckGenerate(true);
   };
   const previewFile = (e) => {
-    console.log();
     const file = e.target.files;
     const reader = new FileReader();
 
