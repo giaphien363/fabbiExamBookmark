@@ -74,7 +74,6 @@ function Login() {
     // login via api
     LoginAPI(formValue)
       .then((res) => {
-        console.log(res);
         setErrorForm("");
         setToken(res);
         history.replace("/bookmarklet");
@@ -137,19 +136,20 @@ function Login() {
               onFailure={responseGoogle}
             />
 
-            <StyledButtonFb>
+            {/* <StyledButtonFb> */}
               <FacebookLogin
-                textButton={
-                  <div style={{ display: "flex" }}>
-                    <StyledIconFb className="fab fa-facebook-f"></StyledIconFb>
-                    <StyledTextFb>login with facebook</StyledTextFb>
-                  </div>
-                }
+                // textButton={
+                //   <div style={{ display: "flex" }}>
+                //     <StyledIconFb className="fab fa-facebook-f"></StyledIconFb>
+                //     <StyledTextFb>login with facebook</StyledTextFb>
+                //   </div>
+                // }
+                textButton="login fb"
                 appId={appId}
                 fields="name,email,picture"
                 callback={responseFacebook}
               />
-            </StyledButtonFb>
+            {/* </StyledButtonFb> */}
           </StyledWith>
           <br/>
           <hr />
