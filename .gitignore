@@ -3,7 +3,8 @@ venv
 .env
 .vscode
 db.sqlite3
-
+.coverage
+cmd.txt
 
 # FE
 ./frontend/.env

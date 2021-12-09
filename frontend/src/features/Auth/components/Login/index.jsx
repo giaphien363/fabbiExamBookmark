@@ -18,9 +18,8 @@ import {
   StyledWith,
 } from "./styledLogin";
 
-const clientID =
-  "805073004544-q3ald2esuh4m7ulahedeo8bf57v8ltrq.apps.googleusercontent.com";
-const appId = "554449962418854";
+const clientID =process.env.REACT_APP_CLIENT_ID_GG;
+const appId = process.env.REACT_APP_CLIENT_ID_FB;
 
 function Login() {
   const [formValue, setFormValue] = useState({ username: "", password: "" });
@@ -40,6 +39,7 @@ function Login() {
       username: data["user"]["last_name"] + " " + data["user"]["first_name"],
     };
     setToken(token);
+    // loader spinner :false
     history.replace("/");
   };
 
@@ -54,6 +54,7 @@ function Login() {
       username: data["user"]["last_name"] + " " + data["user"]["first_name"],
     };
     setToken(token);
+    // loader spinner :false
     history.replace("/");
   };
 
