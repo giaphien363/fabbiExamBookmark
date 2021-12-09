@@ -154,9 +154,9 @@ function Login() {
           <hr />
         </div>
         <div>
-          <span>New to Bookmark? </span>
+          <span>New to Bookmark? &nbsp;&nbsp;</span>
           <span>
-            <Link to="/register">SIGN UP</Link>
+            <Link to="/register"> SIGN UP</Link>
           </span>
         </div>
       </>

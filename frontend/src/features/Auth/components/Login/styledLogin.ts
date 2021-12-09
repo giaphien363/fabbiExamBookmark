@@ -22,6 +22,7 @@ export const StyledContainer = styled(Container)`
     justify-content: center;
     text-align: center;
     margin-top: 5rem;
+    padding-bottom: 3rem;
 `
 
 export const StyledLabel = styled(Label)`
