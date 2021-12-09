@@ -105,24 +105,24 @@ WSGI_APPLICATION = 'bookmarklet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': env('DATABASE'),
+        'NAME': env('DATABASE'), # bookmark
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': env('HOST'),
             'port': int(env('PORT')),
-            'username': env('USER_NAME'),
-            'password': env('PASSWORD'),
+            'username': env('USER_NAME'),# admin
+            'password': env('PASSWORD'),# admin
         },
     }
 }
 
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

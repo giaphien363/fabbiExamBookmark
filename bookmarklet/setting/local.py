@@ -1,6 +1,17 @@
 from bookmarklet.default_settings import *
 from datetime import timedelta
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':  env('DATABASE'),
+        'USER': env('USER_NAME'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'),
+        'PORT': env('PORT'),
+    }
+}
+
 AUTH_PASSWORD_VALIDATORS = []
 
 SOCIALACCOUNT_PROVIDERS = {
