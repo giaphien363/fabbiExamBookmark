@@ -1,6 +1,10 @@
 import {Button, Col} from "reactstrap";
 import styled from "styled-components"
 
+export const StyledLoader = styled.div`
+
+`
+
 export const StyledLink = styled.a`
     text-decoration: none;
     line-height: 2.3rem;

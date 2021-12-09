@@ -8,7 +8,7 @@ import {
   StyledButton,
   StyledContainer,
   StyledInput,
-  StyledLabel
+  StyledLabel,
 } from "./styledLogin";
 
 const clientID =
@@ -33,13 +33,16 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (formValue["username"].length < 3 || formValue["password"].length < 3) {
+      setErrorForm("Your username or password is invalid. Please try again!");
+      return;
+    }
     // login via api
     LoginAPI(formValue)
       .then((res) => {
         setErrorForm("");
         setToken(res);
-        history.replace("/");
+        history.replace("/bookmarklet");
       })
       .catch((res) => {
         let error = res.response.data.detail;

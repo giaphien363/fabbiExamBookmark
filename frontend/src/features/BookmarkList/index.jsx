@@ -8,12 +8,7 @@ import { useToken } from "../../CustomHook/useToken";
 Bookmark.propTypes = {};
 
 function Bookmark() {
-  const { access } = useToken();
-
-  const history = useHistory();
-  if (!access) {
-    history.push("/login");
-  }
+  
   const match = useRouteMatch();
 
   return (

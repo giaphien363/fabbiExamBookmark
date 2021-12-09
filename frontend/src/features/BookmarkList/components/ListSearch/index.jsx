@@ -1,7 +1,9 @@
 import { Modal } from "react-bootstrap";
 import { useState, useRef, useEffect } from "react";
+import { Ellipsis, Roller } from "react-awesome-spinners";
 import { Form } from "reactstrap";
 import {
+  StyledLoader,
   StyledButton,
   StyledButtons,
   StyledLink,
@@ -36,9 +38,9 @@ const ListSearch = ({ inputSearch }) => {
       }
 
       searchTimeOut.current = setTimeout(() => {
-        setLoader(false);
         SearchBookmark(inputSearch).then((res) => {
           setResultBookmark(res);
+          setLoader(false);
         });
       }, 500);
     }
@@ -67,15 +69,20 @@ const ListSearch = ({ inputSearch }) => {
   return (
     <>
       {loader ? (
-        <p>dang load</p>
+        <div style={{display:"flex", justifyContent:"center", padding:"3rem"}}>
+          <Roller />
+        </div>
       ) : (
-        <h2>there are {resultBookmark.length} bookmarks!</h2>
+        <p>There are {resultBookmark.length} bookmarks!</p>
       )}
+
       {resultBookmark.map((item, i) => {
         return (
           <StyledSearch key={i}>
             <StyledLink href={item.url} target="_blank" rel="noreferrer">
-              {item.title}
+              {item.title.length > 40
+                ? `${item.title.substring(0, 40)} ...`
+                : item.title}
             </StyledLink>
             <StyledButtons>
               <StyledButton

@@ -1,4 +1,4 @@
-import { default as React, default as React, useState } from "react";
+import { default as React, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Form, FormGroup } from "reactstrap";
 import { Register } from "../../../../API/AuthAPI";
@@ -29,6 +29,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
 
     // Signup via api
     Register(formValue)
@@ -58,6 +59,7 @@ function Signup() {
             placeholder="Your username"
             type="text"
             onChange={changeValueForm}
+            required
           />
         </FormGroup>
 
@@ -69,6 +71,7 @@ function Signup() {
             placeholder="Type your email"
             type="email"
             onChange={changeValueForm}
+            required
           />
         </FormGroup>
 
@@ -80,6 +83,7 @@ function Signup() {
             placeholder="Type your password"
             type="password"
             onChange={changeValueForm}
+            required
           />
         </FormGroup>
 
