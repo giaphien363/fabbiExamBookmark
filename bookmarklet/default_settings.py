@@ -104,25 +104,22 @@ WSGI_APPLICATION = 'bookmarklet.wsgi.application'
 '''
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': env('DATABASE'),
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': env('HOST'),
-            'port': int(env('PORT')),
-            'username': env('USER_NAME'),
-            'password': env('PASSWORD'),
-        },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'env('DATABASE')',
+            'HOST': env('HOST'),
+            'PORT': int(env('PORT')),
+            'USER_NAME': env('USER_NAME'),
+            'PASSWORD': env('PASSWORD'),
     }
 }
 
 '''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -134,7 +134,7 @@ const Main = () => {
       <StyledMain>
         <Row className="my-4">
           <Col md={6}>
-            <h1>Bookmark Management</h1>
+            <h1>Bookmark Manager</h1>
           </Col>
 
           <div style={{ display: "flex", width: "50%", float: "right" }}>
