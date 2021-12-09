@@ -73,15 +73,15 @@ const ListSearch = ({ inputSearch }) => {
           <Roller />
         </div>
       ) : (
-        <p>There are {resultBookmark.length} bookmarks!</p>
+        <p style={{marginBottom:"3rem", textAlign:"right"}}>There are {resultBookmark.length} bookmarks!</p>
       )}
 
       {resultBookmark.map((item, i) => {
         return (
           <StyledSearch key={i}>
             <StyledLink href={item.url} target="_blank" rel="noreferrer">
-              {item.title.length > 40
-                ? `${item.title.substring(0, 40)} ...`
+              {item.title.length > 50
+                ? `${item.title.substring(0, 50)} ...`
                 : item.title}
             </StyledLink>
             <StyledButtons>

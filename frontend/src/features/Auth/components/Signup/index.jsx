@@ -48,7 +48,7 @@ function Signup() {
     <StyledContainer>
       <h2>SIGN UP</h2>
       <br />
-
+      
       <Form onSubmit={handleSubmit}>
         {errorForm && <p className="text-danger">{errorForm}</p>}
         <FormGroup>

@@ -1,5 +1,18 @@
 import styled from 'styled-components'
-import {Container, Label, Input} from 'reactstrap'
+import {Container, Label, Input, Button} from 'reactstrap'
+
+export const StyledLoader = styled.div`
+    width : 100%;
+    height: 100vh;
+    display : flex;
+    justify-content: center;
+    padding : 3rem;
+    position: absolute;
+    top : 0;
+    left : 0;
+    align-items : center;
+    background : #8080808c;
+`
 
 export const StyledContainer = styled(Container)`
     overflow: hidden;
@@ -36,4 +49,28 @@ export const StyledButton = styled.button`
     height: 2rem;
     width: 100%;
 
+`
+
+export const StyledWith = styled.div`
+    display: flex;
+    justify-content: space-around;
+    padding : 0.1rem;
+`
+export const StyledButtonFb = styled.button`
+    line-height: 0px;
+    overflow: hidden; 
+    border-color:transparent;
+`
+
+export const StyledIconFb = styled.i`
+    font-size: 18px;
+    margin-top: 0.2rem;
+    margin-right: 0.8rem;
+    margin-left:-0.8rem;
+`
+export const StyledTextFb = styled.p`
+  margin-top: 0.9rem;
+  font-family: roboto, sans-serif;
+  font-weight: lighter; 
+  margin-right: -0.8rem;
 `

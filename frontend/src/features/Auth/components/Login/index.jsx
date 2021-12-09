@@ -1,32 +1,39 @@
 import React, { useState } from "react";
-import GoogleLogin from "react-google-login";
+import { Roller } from "react-awesome-spinners";
 import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
 import { Link, useHistory } from "react-router-dom";
 import { Form, FormGroup } from "reactstrap";
-import { LoginAPI, LoginGoogle, LoginFacebook } from "../../../../API/AuthAPI";
+import { LoginAPI, LoginFacebook, LoginGoogle } from "../../../../API/AuthAPI";
 import { useToken } from "../../../../CustomHook/useToken";
 import {
   StyledButton,
+  StyledButtonFb,
   StyledContainer,
+  StyledIconFb,
   StyledInput,
   StyledLabel,
+  StyledLoader,
+  StyledTextFb,
+  StyledWith,
 } from "./styledLogin";
 
 const clientID =
-  "286335714917-qkb9o2eag4c1fl3g5pjll7p9tdjvdu8f.apps.googleusercontent.com";
-const appId = "429007665335347";
+  "805073004544-q3ald2esuh4m7ulahedeo8bf57v8ltrq.apps.googleusercontent.com";
+const appId = "554449962418854";
 
 function Login() {
-  console.log("env: ", process.env.CLIENT_ID);
   const [formValue, setFormValue] = useState({ username: "", password: "" });
   const [errorForm, setErrorForm] = useState("");
+  const [loader, setLoader] = useState(false);
+
   const { setToken } = useToken();
   const history = useHistory();
 
   const responseGoogle = async (response) => {
+    setLoader(true);
     let googleResponse = await LoginGoogle(response.accessToken);
     const data = googleResponse.data;
-    console.log("gg: ", data);
     const token = {
       access: data["access_token"],
       refresh: data["refresh_token"],
@@ -37,6 +44,7 @@ function Login() {
   };
 
   const responseFacebook = async (response) => {
+    setLoader(true);
     let fbResponse = await LoginFacebook(response.accessToken);
 
     const data = fbResponse.data;
@@ -56,10 +64,12 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
     if (formValue["username"].length < 3 || formValue["password"].length < 3) {
       setErrorForm("Your username or password is invalid. Please try again!");
       return;
     }
+
     // login via api
     LoginAPI(formValue)
       .then((res) => {
@@ -77,10 +87,12 @@ function Login() {
   return (
     <StyledContainer>
       <h2>Login</h2>
+
       <br />
       <>
         <Form onSubmit={handleSubmit}>
           {errorForm && <p className="text-danger">{errorForm}</p>}
+
           <FormGroup>
             <StyledLabel>Username</StyledLabel>
             <StyledInput
@@ -102,33 +114,45 @@ function Login() {
               onChange={changeValueForm}
             />
           </FormGroup>
-
-          <StyledButton type="submit">Login</StyledButton>
+          <div>
+            <StyledButton type="submit">Login</StyledButton>
+            {loader && (
+              <StyledLoader>
+                <Roller />
+              </StyledLoader>
+            )}
+          </div>
         </Form>
 
         <div>
           <hr />
           <p>Or</p>
-        </div>
 
-        <div>
-          <div>
+          <StyledWith>
             <GoogleLogin
               clientId={clientID}
               buttonText="LOGIN WITH GOOGLE"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
             />
-          </div>
-          <hr />
-          <FacebookLogin
-            textButton="LOGIN WITH FACEBOOK"
-            appId={appId}
-            fields="name,email,picture"
-            callback={responseFacebook}
-          />
-        </div>
 
+            <StyledButtonFb>
+              <FacebookLogin
+                textButton={
+                  <div style={{ display: "flex" }}>
+                    <StyledIconFb className="fab fa-facebook-f"></StyledIconFb>
+                    <StyledTextFb>login with facebook</StyledTextFb>
+                  </div>
+                }
+                appId={appId}
+                fields="name,email,picture"
+                callback={responseFacebook}
+              />
+            </StyledButtonFb>
+          </StyledWith>
+          <br/>
+          <hr />
+        </div>
         <div>
           <span>New to Bookmark? </span>
           <span>
