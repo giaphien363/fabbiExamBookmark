@@ -7,11 +7,13 @@ import reportWebVitals from "./reportWebVitals";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+require("dotenv").config();
+
 ReactDOM.render(
   <React.StrictMode>
     <CookiesProvider>
       <App />
-    </CookiesProvider>
+    </CookiesProvider> 
   </React.StrictMode>,
   document.getElementById("root")
 );

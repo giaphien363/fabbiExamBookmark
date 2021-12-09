@@ -12,12 +12,10 @@ import {
   StyledLabel,
 } from "./styledLogin";
 
-const clientID =
-  "286335714917-qkb9o2eag4c1fl3g5pjll7p9tdjvdu8f.apps.googleusercontent.com";
-const appId = "429007665335347";
+const clientID =process.env.REACT_APP_CLIENT_ID_GG;
+const appId = process.env.REACT_APP_CLIENT_ID_FB;
 
 function Login() {
-  console.log("env: ", process.env.CLIENT_ID);
   const [formValue, setFormValue] = useState({ username: "", password: "" });
   const [errorForm, setErrorForm] = useState("");
   const { setToken } = useToken();
@@ -26,13 +24,13 @@ function Login() {
   const responseGoogle = async (response) => {
     let googleResponse = await LoginGoogle(response.accessToken);
     const data = googleResponse.data;
-    console.log("gg: ", data);
     const token = {
       access: data["access_token"],
       refresh: data["refresh_token"],
       username: data["user"]["last_name"] + " " + data["user"]["first_name"],
     };
     setToken(token);
+    // loader spinner :false
     history.replace("/");
   };
 
@@ -46,6 +44,7 @@ function Login() {
       username: data["user"]["last_name"] + " " + data["user"]["first_name"],
     };
     setToken(token);
+    // loader spinner :false
     history.replace("/");
   };
 
@@ -56,7 +55,7 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // loader spinner :true
     // login via api
     LoginAPI(formValue)
       .then((res) => {

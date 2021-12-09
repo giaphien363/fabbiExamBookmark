@@ -4,12 +4,11 @@ import {
   DelCategory,
   GetAllCategory,
   InsertCategory,
-  UpdateCategory
+  UpdateCategory,
 } from "../../../../API/CategoryAPI";
 import Group from "../../components/Group";
 import ListSearch from "../../components/ListSearch";
 import { StyledMain } from "./styledMain";
-
 
 const Main = () => {
   const [inputGroup, setInputGroup] = useState("");
@@ -29,18 +28,7 @@ const Main = () => {
     let isApiSubscribed = true;
     if (isApiSubscribed) {
       GetAllCategory().then((res) => {
-        const newCate = [];
-
-        res.map((item) => {
-          let subItem = {
-            value: item.id,
-            label: item.categoryName,
-          };
-          newCate.push(subItem);
-          return item;
-        });
-
-        setCategoriesSelect(newCate);
+        setSelectCategory(res);
         setCategories(res);
       });
     }
@@ -48,6 +36,19 @@ const Main = () => {
       isApiSubscribed = false;
     };
   }, []);
+
+  const setSelectCategory = (array) => {
+    const newCate = [];
+    array.map((item) => {
+      let subItem = {
+        value: item.id,
+        label: item.categoryName,
+      };
+      newCate.push(subItem);
+      return item;
+    });
+    setCategoriesSelect(newCate);
+  };
 
   const checkCateNameValid = (cateName) => {
     // get array only category name
@@ -70,9 +71,9 @@ const Main = () => {
           return;
         } else {
           InsertCategory({ categoryName: value }).then((res) => {
-            alert("Create successfully!!!");
             var listCate = [...categories];
             listCate.push(res);
+            setSelectCategory(listCate);
             setCategories(listCate);
           });
         }
@@ -88,6 +89,7 @@ const Main = () => {
             let index = listCate.findIndex((obj) => obj.id === id);
 
             listCate[index].categoryName = value;
+            setSelectCategory(listCate);
             setCategories(listCate);
           });
         }
