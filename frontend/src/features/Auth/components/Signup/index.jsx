@@ -29,6 +29,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
 
     // Signup via api
     Register(formValue)
@@ -47,7 +48,7 @@ function Signup() {
     <StyledContainer>
       <h2>SIGN UP</h2>
       <br />
-
+      
       <Form onSubmit={handleSubmit}>
         {errorForm && <p className="text-danger">{errorForm}</p>}
         <FormGroup>
@@ -58,6 +59,7 @@ function Signup() {
             placeholder="Your username"
             type="text"
             onChange={changeValueForm}
+            required
           />
         </FormGroup>
 
@@ -69,6 +71,7 @@ function Signup() {
             placeholder="Type your email"
             type="email"
             onChange={changeValueForm}
+            required
           />
         </FormGroup>
 
@@ -80,6 +83,7 @@ function Signup() {
             placeholder="Type your password"
             type="password"
             onChange={changeValueForm}
+            required
           />
         </FormGroup>
 

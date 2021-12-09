@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
+import { useToken } from "../../CustomHook/useToken";
+import {useHistory} from "react-router-dom"
 
 import raw from "../BookmarkLet/codeBookmarkLet.txt";
 
 const BookmarkLet = () => {
   const [checkGenerate, setCheckGenerate] = useState(false);
   const [value, setValue] = useState("");
+  const { access } = useToken();
 
+  const history = useHistory();
+  if (!access) {
+    history.push("/login");
+  }
   useEffect(() => {
     document.title = "Bookmarklet";
   }, []);
