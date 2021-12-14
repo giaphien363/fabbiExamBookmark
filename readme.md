@@ -1,5 +1,5 @@
 ## Project Bookmark Manager
-![This is an image](imgs/home_page.png)
+![This is an image](imgs/homePage.png)
 
 ***Bookmark Manager allows you to manage website links for future. Especially, you can create bookmark with a few click.***
 
@@ -39,5 +39,9 @@
 - `yarn`
 ### 2. Run react app
 - `yarn start`
+
+## Docs for api
+- **You need to run server first!**
+- Open your favorite browser, go to `localhost:8000/redoc/`
 
 # Let's enjoy it.

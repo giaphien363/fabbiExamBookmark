@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    'drf_yasg',
     "rest_framework_simplejwt",
     "dj_rest_auth",
     # create my apps
