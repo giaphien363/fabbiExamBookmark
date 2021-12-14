@@ -3,6 +3,15 @@
 
 ***Bookmark Manager allows you to manage website links for future. Especially, you can create bookmark with a few click.***
 
+### User case
+![User case](imgs/UseCase.png)
+
+### Activity diagram for category(bookmark)
+![Activity diagram](imgs/activity_cate.png)
+
+### Activity diagram for bookmarklet
+![Activity diagram](imgs/activity_bookmarklet.png)
+
 ## Pre-requisite
 1. Installed python3, to check:
     - `python --version`
